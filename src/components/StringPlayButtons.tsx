@@ -42,15 +42,15 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
           <TouchableOpacity
             key={string.id}
             style={[
-              styles.button,
-              isActive && styles.buttonActive,
+              styles.outerRing,
+              isActive && styles.outerRingActive,
               isAutoPlaying && !isActive && styles.buttonDisabled,
             ]}
             onPress={() => onStringToggle(string.id)}
-            activeOpacity={0.7}
+            activeOpacity={0.8}
             disabled={isAutoPlaying}
           >
-            <View style={styles.buttonInner}>
+            <View style={[styles.innerButton, isActive && styles.innerButtonActive]}>
               <Text style={[styles.label, isActive && styles.labelActive]}>
                 {string.label}
               </Text>
@@ -68,57 +68,66 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingHorizontal: SPACING.xl,
-    gap: SPACING.lg,
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.md,
   },
-  button: {
-    flex: 1,
-    maxWidth: 110,
-    aspectRatio: 1,
-    borderRadius: 999,
-    borderWidth: 3,
-    borderColor: COLORS.borderGold,
-    backgroundColor: COLORS.backgroundDark,
+  // 画像の「太い金の縁」を模した外枠
+  outerRing: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#3a2311',
+    borderWidth: 4,
+    borderColor: '#c6a265',
     alignItems: 'center',
     justifyContent: 'center',
-    // 影（iOS）
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 6,
-    // 影（Android）
-    elevation: 8,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
+    elevation: 10,
   },
-  buttonActive: {
+  outerRingActive: {
     borderColor: COLORS.activeGlow,
-    backgroundColor: COLORS.surfaceHighlight,
     shadowColor: COLORS.activeGlow,
-    shadowOpacity: 0.9,
-    shadowRadius: 16,
-    elevation: 12,
+    shadowOpacity: 1,
+    shadowRadius: 15,
   },
   buttonDisabled: {
-    opacity: 0.4,
+    opacity: 0.5,
   },
-  buttonInner: {
+  // ボタンの内側の暗い部分
+  innerButton: {
+    width: 86,
+    height: 86,
+    borderRadius: 43,
+    backgroundColor: '#1b0e06',
+    borderWidth: 1,
+    borderColor: '#5a3d24',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  innerButtonActive: {
+    backgroundColor: '#2e1c0c',
+  },
   label: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textPrimary,
-    marginBottom: SPACING.xs,
+    fontSize: FONT_SIZES.md,
+    color: '#d8bd8a',
+    fontFamily: 'serif',
   },
   labelActive: {
-    color: COLORS.activeGlow,
+    color: '#ffdf91',
   },
   noteName: {
     fontSize: FONT_SIZES.hero,
-    fontWeight: 'bold',
-    color: COLORS.goldBright,
+    color: '#c6a265',
+    fontFamily: 'serif',
   },
   noteNameActive: {
-    color: COLORS.textWhite,
+    color: '#ffdf91',
+    textShadowColor: 'rgba(255, 223, 145, 0.8)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
 });

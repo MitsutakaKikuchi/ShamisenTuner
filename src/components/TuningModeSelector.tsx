@@ -22,14 +22,18 @@ export const TuningModeSelector: React.FC<TuningModeSelectorProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.tabGroup}>
-        {modes.map((mode) => {
+        {modes.map((mode, index) => {
           const isSelected = mode.id === selectedModeId;
           return (
             <TouchableOpacity
               key={mode.id}
-              style={[styles.tab, isSelected && styles.tabActive]}
+              style={[
+                styles.tab,
+                isSelected && styles.tabActive,
+                index !== modes.length - 1 && styles.borderRight,
+              ]}
               onPress={() => onModeChange(mode.id)}
-              activeOpacity={0.7}
+              activeOpacity={0.8}
             >
               <Text style={[styles.tabText, isSelected && styles.tabTextActive]}>
                 {mode.label}
@@ -49,30 +53,32 @@ const styles = StyleSheet.create({
   },
   tabGroup: {
     flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: COLORS.borderGold,
-    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1.5,
+    borderColor: COLORS.gold,
+    borderRadius: BORDER_RADIUS.sm,
     overflow: 'hidden',
+    backgroundColor: '#2b1b11',
   },
   tab: {
     flex: 1,
     paddingVertical: SPACING.lg,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.backgroundLight,
-    borderRightWidth: 1,
-    borderRightColor: COLORS.borderGold,
+  },
+  borderRight: {
+    borderRightWidth: 1.5,
+    borderRightColor: COLORS.goldDark,
   },
   tabActive: {
-    backgroundColor: COLORS.gold,
+    backgroundColor: COLORS.surfaceHighlight,
   },
   tabText: {
     fontSize: FONT_SIZES.xl,
     color: COLORS.textPrimary,
-    fontWeight: '500',
+    fontFamily: 'serif',
   },
   tabTextActive: {
-    color: '#3E2723',
+    color: COLORS.textDark,
     fontWeight: 'bold',
   },
 });

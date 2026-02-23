@@ -3,38 +3,39 @@
  * アプリ全体の配色・フォントサイズ・間隔を一元管理
  */
 
-// 和風カラーパレット
+// 和風カラーパレット（UI画像から精密に抽出した値）
 export const COLORS = {
   // 背景系
-  backgroundDark: '#1a0e08',     // 最も暗い背景（メイン背景）
-  backgroundMedium: '#2c1810',   // 中間背景
-  backgroundLight: '#3a2818',    // 明るめの背景
-  
+  backgroundDark: '#210e04',     // 最も暗い背景（メイン背景）
+  backgroundMedium: '#3a1f11',   // 中間背景
+  backgroundLight: '#5c3a21',    // 明るめの背景
+
   // 和風アクセント
-  gold: '#d4a574',               // 金色（メインテキスト・装飾）
-  goldBright: '#f4d4a4',         // 明るい金色（強調テキスト）
-  goldDark: '#8a6040',           // 暗い金色（アクティブ状態）
-  
+  gold: '#b08d55',               // 金色（メインテキスト・装飾）
+  goldBright: '#e8c988',         // 明るい金色（強調テキスト）
+  goldDark: '#70542c',           // 暗い金色（アクティブ状態）
+
   // ボタン・カード
-  surface: '#4a3728',            // ボタン・カード背景
-  surfaceActive: '#6a5040',      // アクティブなボタン背景
-  surfaceHighlight: '#8a6040',   // ハイライト状態   
-  
+  surface: '#3b2314',            // ボタン・カード背景
+  surfaceActive: '#5c3a21',      // アクティブなボタン背景
+  surfaceHighlight: '#c6a265',   // ハイライト状態（タブ選択時などのゴールド）
+
   // ボーダー・装飾
-  borderGold: '#8a7040',         // 金色のボーダー
-  borderLight: '#6a5040',        // 標準ボーダー
-  borderBright: '#d4a574',       // 明るいボーダー（アクティブ時）
-  
+  borderGold: '#b08d55',         // 金色のボーダー
+  borderLight: '#70542c',        // 標準ボーダー
+  borderBright: '#e8c988',       // 明るいボーダー（アクティブ時）
+
   // テキスト
-  textPrimary: '#d4a574',        // 主要テキスト
-  textBright: '#f4d4a4',         // 明るいテキスト
+  textPrimary: '#d8bd8a',        // 主要テキスト
+  textBright: '#fdf3d6',         // 明るいテキスト
   textWhite: '#ffffff',          // 白テキスト
-  textMuted: '#8a7060',          // 控えめなテキスト
-  
+  textMuted: '#9e8568',          // 控えめなテキスト
+  textDark: '#2c190a',           // ゴールド背景上の暗いテキスト
+
   // ステータス
-  activeGlow: '#ffcc66',         // 発音中のグロー
-  switchOn: '#4a8a40',           // スイッチON
-  switchOff: '#3a2818',          // スイッチOFF
+  activeGlow: '#ffdf91',         // 発音中のグロー
+  switchOn: '#6eb872',           // スイッチON
+  switchOff: '#4a3324',          // スイッチOFF
 } as const;
 
 // フォントサイズ
