@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 90" width="520" height="90">
+  <defs>
+    <!-- Outer container - urushi black lacquer -->
+    <linearGradient id="lacquerContainer" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#2E1C08"/>
+      <stop offset="30%"  stop-color="#1E1006"/>
+      <stop offset="70%"  stop-color="#140A04"/>
+      <stop offset="100%" stop-color="#0A0602"/>
+    </linearGradient>
+    <!-- Inactive button - dark zelkova wood -->
+    <linearGradient id="zelkovaBtn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#4A2E12"/>
+      <stop offset="20%"  stop-color="#3A2010"/>
+      <stop offset="50%"  stop-color="#281608"/>
+      <stop offset="80%"  stop-color="#200E06"/>
+      <stop offset="100%" stop-color="#180A04"/>
+    </linearGradient>
+    <!-- Active center button - kinpaku (金箔) gold foil -->
+    <linearGradient id="kinpakuActive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFF8D0"/>
+      <stop offset="8%"   stop-color="#F5E090"/>
+      <stop offset="25%"  stop-color="#E8C840"/>
+      <stop offset="45%"  stop-color="#D4A820"/>
+      <stop offset="65%"  stop-color="#C09018"/>
+      <stop offset="82%"  stop-color="#A87810"/>
+      <stop offset="100%" stop-color="#906808"/>
+    </linearGradient>
+    <!-- Active button side gloss -->
+    <linearGradient id="activeGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.28"/>
+      <stop offset="35%"  stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.12"/>
+    </linearGradient>
+    <!-- Inactive wood grain shimmer -->
+    <linearGradient id="inactiveGrain" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="40%"  stop-color="#FFFFFF" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08"/>
+    </linearGradient>
+    <!-- Gold divider line -->
+    <linearGradient id="dividerGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#D4A820" stop-opacity="0.0"/>
+      <stop offset="25%"  stop-color="#E8C040" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#F0CC50" stop-opacity="0.9"/>
+      <stop offset="75%"  stop-color="#E8C040" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#D4A820" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="containerShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Outer container -->
+  <rect x="0" y="0" width="520" height="90" rx="18" fill="url(#lacquerContainer)" filter="url(#containerShadow)"/>
+  <!-- Container border gold line -->
+  <rect x="0" y="0" width="520" height="90" rx="18" fill="none" stroke="url(#dividerGold)" stroke-width="1.5"/>
+  <!-- Container top gloss -->
+  <rect x="2" y="2" width="516" height="30" rx="16" fill="#FFFFFF" opacity="0.04"/>
+
+  <!-- Left button inactive (本調子) -->
+  <rect x="3" y="3" width="166" height="84" rx="15" fill="url(#zelkovaBtn)"/>
+  <!-- Wood grain lines on inactive buttons -->
+  <line x1="5"   y1="20" x2="167" y2="21"  stroke="#5A3418" stroke-width="0.5" opacity="0.4"/>
+  <line x1="5"   y1="30" x2="167" y2="29"  stroke="#3A2010" stroke-width="0.6" opacity="0.3"/>
+  <line x1="5"   y1="40" x2="167" y2="41"  stroke="#6A3C1A" stroke-width="0.4" opacity="0.4"/>
+  <line x1="5"   y1="50" x2="167" y2="49"  stroke="#4A2810" stroke-width="0.5" opacity="0.3"/>
+  <line x1="5"   y1="60" x2="167" y2="61"  stroke="#5E3618" stroke-width="0.4" opacity="0.4"/>
+  <line x1="5"   y1="70" x2="167" y2="69"  stroke="#3C2010" stroke-width="0.6" opacity="0.3"/>
+  <rect x="3" y="3" width="166" height="84" rx="15" fill="url(#inactiveGrain)"/>
+
+  <!-- Gold dividers -->
+  <rect x="170" y="5"  width="2" height="80" fill="url(#dividerGold)"/>
+  <rect x="348" y="5"  width="2" height="80" fill="url(#dividerGold)"/>
+
+  <!-- Center button ACTIVE (二上り) -->
+  <rect x="173" y="3" width="174" height="84" rx="0" fill="url(#kinpakuActive)"/>
+  <rect x="173" y="3" width="174" height="84" rx="0" fill="url(#activeGloss)"/>
+  <!-- Active button subtle grain (embossed feel) -->
+  <line x1="175" y1="22" x2="345" y2="23"  stroke="#FFF8D0" stroke-width="0.4" opacity="0.25"/>
+  <line x1="175" y1="32" x2="345" y2="31"  stroke="#C89820" stroke-width="0.5" opacity="0.2"/>
+  <line x1="175" y1="42" x2="345" y2="43"  stroke="#FFF0A0" stroke-width="0.3" opacity="0.2"/>
+  <line x1="175" y1="52" x2="345" y2="51"  stroke="#D4A828" stroke-width="0.4" opacity="0.2"/>
+  <line x1="175" y1="62" x2="345" y2="63"  stroke="#E8C040" stroke-width="0.3" opacity="0.2"/>
+  <line x1="175" y1="72" x2="345" y2="71"  stroke="#C09018" stroke-width="0.5" opacity="0.2"/>
+  <!-- Active border gold hairlines -->
+  <rect x="173" y="3" width="174" height="2" fill="#FFF8D0" opacity="0.4"/>
+  <rect x="173" y="85" width="174" height="2" fill="#806008" opacity="0.5"/>
+
+  <!-- Right button inactive (三下り) -->
+  <rect x="351" y="3" width="166" height="84" rx="15" fill="url(#zelkovaBtn)"/>
+  <line x1="353" y1="20" x2="515" y2="21"  stroke="#5A3418" stroke-width="0.5" opacity="0.4"/>
+  <line x1="353" y1="30" x2="515" y2="29"  stroke="#3A2010" stroke-width="0.6" opacity="0.3"/>
+  <line x1="353" y1="40" x2="515" y2="41"  stroke="#6A3C1A" stroke-width="0.4" opacity="0.4"/>
+  <line x1="353" y1="50" x2="515" y2="49"  stroke="#4A2810" stroke-width="0.5" opacity="0.3"/>
+  <line x1="353" y1="60" x2="515" y2="61"  stroke="#5E3618" stroke-width="0.4" opacity="0.4"/>
+  <line x1="353" y1="70" x2="515" y2="69"  stroke="#3C2010" stroke-width="0.6" opacity="0.3"/>
+  <rect x="351" y="3" width="166" height="84" rx="15" fill="url(#inactiveGrain)"/>
+</svg>

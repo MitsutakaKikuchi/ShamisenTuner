@@ -1,5 +1,6 @@
 /**
  * 自動再生（アルペジオ）トグルコンポーネント
+ * SVGベースのトグルスイッチ
  */
 
 import React from 'react';
@@ -17,11 +18,11 @@ export const AutoPlayToggle: React.FC<AutoPlayToggleProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>自動再生 (アルペジオ)</Text>
+      <Text style={styles.label}>自動再生</Text>
       <Switch
         value={isAutoPlaying}
         onValueChange={onToggle}
-        trackColor={{ false: COLORS.switchOff, true: '#4CAF50' }}
+        trackColor={{ false: COLORS.switchOff, true: '#34C94A' }}
         thumbColor={'#ffffff'}
         ios_backgroundColor={COLORS.switchOff}
       />

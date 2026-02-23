@@ -2,49 +2,155 @@ package expo.modules.shamisenaudio
 
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import java.net.URL
+import android.media.AudioAttributes
+import android.media.AudioFormat
+import android.media.AudioTrack
+import kotlin.math.sin
+import kotlin.math.PI
+import kotlin.math.max
+import kotlin.math.min
 
 class ShamisenAudioModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+  private var audioTrack: AudioTrack? = null
+  private var isPlaying = false
+  private var currentFrequency = 0f
+  private var toneType = "electronic"
+  private var playThread: Thread? = null
+
+  private val sampleRate = 44100
+  private val fadeInSamples = 441
+  private val fadeOutSamples = 441
+
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('ShamisenAudio')` in JavaScript.
     Name("ShamisenAudio")
 
-    // Defines constant property on the module.
-    Constant("PI") {
-      Math.PI
+    Function("playTone") { frequency: Float ->
+      playTone(frequency)
     }
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+    Function("stopTone") {
+      stopTone()
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
+    Function("setToneType") { type: String ->
+      setToneType(type)
     }
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(ShamisenAudioView::class) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { view: ShamisenAudioView, url: URL ->
-        view.webView.loadUrl(url.toString())
+    OnDestroy {
+      stopTone()
+    }
+  }
+
+  private fun setToneType(type: String) {
+    toneType = type
+    if (isPlaying && currentFrequency > 0) {
+      val freq = currentFrequency
+      stopTone()
+      playTone(freq)
+    }
+  }
+
+  private fun playTone(frequency: Float) {
+    if (isPlaying && currentFrequency == frequency) return
+
+    if (isPlaying) {
+      stopTone()
+    }
+
+    currentFrequency = frequency
+    isPlaying = true
+
+    val bufferSize = AudioTrack.getMinBufferSize(
+      sampleRate,
+      AudioFormat.CHANNEL_OUT_MONO,
+      AudioFormat.ENCODING_PCM_16BIT
+    )
+
+    audioTrack = AudioTrack.Builder()
+      .setAudioAttributes(
+        AudioAttributes.Builder()
+          .setUsage(AudioAttributes.USAGE_MEDIA)
+          .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+          .build()
+      )
+      .setAudioFormat(
+        AudioFormat.Builder()
+          .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+          .setSampleRate(sampleRate)
+          .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+          .build()
+      )
+      .setBufferSizeInBytes(bufferSize)
+      .build()
+
+    audioTrack?.play()
+
+    playThread = Thread {
+      val buffer = ShortArray(bufferSize / 2)
+      val isPipe = toneType == "pipe"
+      var frameOffset = 0
+
+      while (isPlaying) {
+        for (i in buffer.indices) {
+          val frame = frameOffset + i
+          val time = frame.toFloat() / sampleRate
+          val phase = (2.0 * PI * frequency * time).toFloat()
+
+          var sample = if (isPipe) {
+            (sin(phase.toDouble())
+              + 0.30 * sin(2.0 * phase)
+              + 0.45 * sin(3.0 * phase)
+              + 0.10 * sin(4.0 * phase)
+              + 0.25 * sin(5.0 * phase)
+              + 0.05 * sin(6.0 * phase)
+              + 0.12 * sin(7.0 * phase)).toFloat() * 0.44f
+          } else {
+            sin(phase.toDouble()).toFloat()
+          }
+
+          // フェードイン
+          if (frame < fadeInSamples) {
+            sample *= frame.toFloat() / fadeInSamples
+          }
+
+          val volume = calculateVolume(frequency)
+          sample *= volume
+
+          buffer[i] = (sample * Short.MAX_VALUE).toInt().toShort()
+        }
+
+        frameOffset += buffer.size
+
+        try {
+          audioTrack?.write(buffer, 0, buffer.size)
+        } catch (e: Exception) {
+          break
+        }
       }
-      // Defines an event that the view can send to JavaScript.
-      Events("onLoad")
+    }
+    playThread?.start()
+  }
+
+  private fun stopTone() {
+    isPlaying = false
+    try {
+      playThread?.join(100)
+      audioTrack?.stop()
+      audioTrack?.release()
+    } catch (e: Exception) {
+      // ignore
+    }
+    audioTrack = null
+    playThread = null
+    currentFrequency = 0f
+  }
+
+  private fun calculateVolume(frequency: Float): Float {
+    val baseFreq = 1000f
+    return if (frequency < baseFreq) {
+      max(0.8f, min(1.2f, 1.0f + (baseFreq - frequency) / baseFreq * 0.2f))
+    } else {
+      max(0.9f, min(1.1f, 1.0f + (frequency - baseFreq) / baseFreq * 0.1f))
     }
   }
 }

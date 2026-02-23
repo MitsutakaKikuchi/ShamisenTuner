@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" width="200" height="70">
+  <defs>
+    <!-- Gear gradient -->
+    <radialGradient id="gearGrad" cx="38%" cy="30%" r="68%">
+      <stop offset="0%"   stop-color="#FFF8A0"/>
+      <stop offset="25%"  stop-color="#E8C040"/>
+      <stop offset="55%"  stop-color="#C09018"/>
+      <stop offset="80%"  stop-color="#9A7010"/>
+      <stop offset="100%" stop-color="#C89820"/>
+    </radialGradient>
+    <radialGradient id="gearCenter" cx="40%" cy="35%" r="60%">
+      <stop offset="0%"   stop-color="#3E2010"/>
+      <stop offset="50%"  stop-color="#1E0E06"/>
+      <stop offset="100%" stop-color="#0A0402"/>
+    </radialGradient>
+    <!-- Toggle ON green -->
+    <linearGradient id="toggleGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#5CE870"/>
+      <stop offset="40%"  stop-color="#34C94A"/>
+      <stop offset="100%" stop-color="#22A034"/>
+    </linearGradient>
+    <!-- Toggle thumb -->
+    <radialGradient id="thumbGrad" cx="38%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#FFFFFF"/>
+      <stop offset="60%"  stop-color="#F0F0F0"/>
+      <stop offset="100%" stop-color="#D8D8D8"/>
+    </radialGradient>
+    <filter id="gearShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="toggleShadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="thumbShadow">
+      <feDropShadow dx="-2" dy="1" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- ══ GEAR ICON ══ -->
+  <g transform="translate(35, 35)" filter="url(#gearShadow)">
+    <!-- 8-tooth gear (mathematically generated, symmetric) -->
+    <path d="
+      M -6.5,-15.7 L -5.2,-24.5 L 5.2,-24.5
+      L 6.5,-15.7 L 13.6,-21.0 L 21.0,-13.6
+      L 15.7,-6.5 L 24.5,-5.2 L 24.5,5.2
+      L 15.7,6.5 L 21.0,13.6 L 13.6,21.0
+      L 6.5,15.7 L 5.2,24.5 L -5.2,24.5
+      L -6.5,15.7 L -13.6,21.0 L -21.0,13.6
+      L -15.7,6.5 L -24.5,5.2 L -24.5,-5.2
+      L -15.7,-6.5 L -21.0,-13.6 L -13.6,-21.0 Z
+    " fill="url(#gearGrad)"/>
+    <!-- Gear highlight -->
+    <ellipse cx="-6" cy="-12" rx="10" ry="6" fill="#FFFFFF" opacity="0.15" transform="rotate(-20)"/>
+    <!-- Center hole -->
+    <circle r="9" fill="url(#gearCenter)"/>
+    <circle r="9" fill="none" stroke="#C89820" stroke-width="1" opacity="0.5"/>
+    <circle r="5" fill="none" stroke="#8A6010" stroke-width="0.8" opacity="0.4"/>
+  </g>
+
+  <!-- ══ TOGGLE ON ══ -->
+  <g transform="translate(108, 35)" filter="url(#toggleShadow)">
+    <!-- Track -->
+    <rect x="-45" y="-22" width="90" height="44" rx="22" fill="url(#toggleGreen)"/>
+    <!-- Track top highlight -->
+    <rect x="-43" y="-20" width="86" height="18" rx="18" fill="#FFFFFF" opacity="0.16"/>
+    <!-- Track border -->
+    <rect x="-45" y="-22" width="90" height="44" rx="22" fill="none" stroke="#1E8A30" stroke-width="1"/>
+    <!-- Thumb (on = right) -->
+    <g transform="translate(24, 0)" filter="url(#thumbShadow)">
+      <circle r="19" fill="url(#thumbGrad)"/>
+      <!-- Thumb rim -->
+      <circle r="19" fill="none" stroke="#D0D0D0" stroke-width="0.8"/>
+      <!-- Thumb highlight -->
+      <ellipse cx="-5" cy="-7" rx="8" ry="6" fill="#FFFFFF" opacity="0.45"/>
+    </g>
+  </g>
+</svg>

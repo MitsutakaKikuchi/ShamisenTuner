@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   stepButtonActive: {
-    backgroundColor: COLORS.surfaceHighlight,
+    backgroundColor: 'rgba(198, 162, 101, 0.85)',
   },
   stepText: {
     fontSize: FONT_SIZES.md,

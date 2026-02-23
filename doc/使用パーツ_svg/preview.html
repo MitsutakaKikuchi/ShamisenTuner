@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>三味線調弦 Assets v2 Preview</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#111; display:flex; justify-content:center; align-items:flex-start; padding:30px; min-height:100vh; }
+  .wrap { display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+
+  .phone {
+    width:390px;
+    background:#0A0804;
+    border-radius:44px;
+    border:1.5px solid #2a1e08;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.05);
+    position:relative;
+  }
+  .phone-inner { position:relative; }
+
+  /* Background layer */
+  .bg-layer { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
+
+  /* Content */
+  .content { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; padding-bottom:30px; }
+
+  .row { display:flex; align-items:center; justify-content:center; width:100%; padding:0 20px; }
+  .gap8  { gap:8px; }
+  .gap12 { gap:12px; }
+  .mt8  { margin-top:8px; }
+  .mt12 { margin-top:12px; }
+  .mt16 { margin-top:16px; }
+  .mt20 { margin-top:20px; }
+  .mt4  { margin-top:4px; }
+
+  .label {
+    color:#B89040;
+    font-size:13px;
+    letter-spacing:0.08em;
+    font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  }
+  .label-small {
+    color:#8A6820;
+    font-size:11px;
+    font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+  }
+  .hz-label {
+    color:#C0A060;
+    font-size:14px;
+    font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+  }
+  .ticker-labels {
+    display:flex;
+    justify-content:space-between;
+    width:340px;
+    margin-top:2px;
+  }
+  .note-labels {
+    display:flex;
+    justify-content:space-around;
+    width:360px;
+    margin-top:6px;
+  }
+  .note-label {
+    color:#C8A040;
+    font-size:18px;
+    font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+    text-align:center;
+    width:110px;
+    text-shadow:0 0 8px rgba(200,160,40,0.5);
+  }
+
+  /* Divider line */
+  .divider {
+    width:340px;
+    height:1px;
+    background:linear-gradient(to right, transparent, #8A6010 20%, #D4A820 50%, #8A6010 80%, transparent);
+    margin:14px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="phone">
+  <div class="phone-inner" style="min-height:844px">
+
+  <!-- Background -->
+  <div class="bg-layer">
+    <svg width="390" height="844" viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="urushiBg" x1="0%" y1="0%" x2="20%" y2="100%">
+          <stop offset="0%" stop-color="#1E1508"/><stop offset="25%" stop-color="#100C04"/>
+          <stop offset="50%" stop-color="#0A0804"/><stop offset="75%" stop-color="#0E0C06"/>
+          <stop offset="100%" stop-color="#181208"/>
+        </linearGradient>
+        <linearGradient id="titleWood" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#4A3018"/><stop offset="35%" stop-color="#5A3820"/>
+          <stop offset="70%" stop-color="#3A2010"/><stop offset="100%" stop-color="#281408"/>
+        </linearGradient>
+        <linearGradient id="kamonGold" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#D4A820" stop-opacity="0"/><stop offset="35%" stop-color="#FFF0A0" stop-opacity="0.9"/>
+          <stop offset="50%" stop-color="#F0CC50" stop-opacity="1"/><stop offset="65%" stop-color="#FFF0A0" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#D4A820" stop-opacity="0"/>
+        </linearGradient>
+        <pattern id="seigaiha" x="0" y="0" width="48" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 0,20 A 24,24 0 0,1 48,20" fill="none" stroke="#2A1E0A" stroke-width="1.4" opacity="0.7"/>
+          <path d="M -24,40 A 24,24 0 0,1 24,40" fill="none" stroke="#2A1E0A" stroke-width="1.4" opacity="0.7"/>
+          <path d="M 24,40 A 24,24 0 0,1 72,40" fill="none" stroke="#2A1E0A" stroke-width="1.4" opacity="0.7"/>
+          <path d="M 0,20 A 24,24 0 0,1 48,20 L 48,40 A 24,24 0 0,0 0,40 Z" fill="#1A1406" opacity="0.12"/>
+        </pattern>
+        <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+          <stop offset="70%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.5"/>
+        </radialGradient>
+      </defs>
+      <rect width="390" height="844" fill="url(#urushiBg)"/>
+      <rect width="390" height="844" fill="url(#seigaiha)" opacity="0.65"/>
+      <rect x="0" y="0" width="390" height="110" fill="url(#titleWood)"/>
+      <line x1="0" y1="22" x2="390" y2="23" stroke="#6A3C1A" stroke-width="0.6" opacity="0.35"/>
+      <line x1="0" y1="38" x2="390" y2="37" stroke="#3E2010" stroke-width="0.7" opacity="0.3"/>
+      <line x1="0" y1="55" x2="390" y2="56" stroke="#5A3418" stroke-width="0.5" opacity="0.35"/>
+      <line x1="0" y1="72" x2="390" y2="71" stroke="#7A4820" stroke-width="0.4" opacity="0.3"/>
+      <line x1="0" y1="89" x2="390" y2="90" stroke="#4A2810" stroke-width="0.6" opacity="0.35"/>
+      <line x1="0" y1="104" x2="390" y2="103" stroke="#3C2010" stroke-width="0.5" opacity="0.3"/>
+      <rect x="0" y="0" width="390" height="38" fill="#FFFFFF" opacity="0.03"/>
+      <rect x="0" y="107" width="390" height="3" fill="url(#kamonGold)"/>
+      <rect width="390" height="844" fill="url(#vignette)"/>
+      <rect x="0" y="800" width="390" height="2" fill="url(#kamonGold)" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Title bar height spacer + gear -->
+    <div class="row" style="height:110px; align-items:flex-end; justify-content:flex-end; padding-right:22px; padding-bottom:12px;">
+      <!-- Gear icon -->
+      <svg width="34" height="34" viewBox="0 0 60 60">
+        <defs><radialGradient id="gg" cx="38%" cy="30%" r="68%"><stop offset="0%" stop-color="#FFF8A0"/><stop offset="25%" stop-color="#E8C040"/><stop offset="55%" stop-color="#C09018"/><stop offset="100%" stop-color="#C89820"/></radialGradient><radialGradient id="gc" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#3E2010"/><stop offset="100%" stop-color="#0A0402"/></radialGradient></defs>
+        <g transform="translate(30,30)" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.6))">
+          <path d="M -7,-24 L 7,-24 C 7,-24 9,-17 11,-14 L 22,-17 L 28,-7 C 28,-7 21,-2 20,2 C 20,6 22,13 22,13 L 14,19 L 7,14 C 4,15 0,16 0,16 C 0,16 -4,15 -7,14 L -14,19 L -22,13 C -22,13 -20,6 -20,2 C -20,-2 -28,-7 -28,-7 L -22,-17 L -11,-14 C -9,-17 -7,-24 -7,-24 Z" fill="url(#gg)"/>
+          <ellipse cx="-6" cy="-12" rx="10" ry="6" fill="#FFFFFF" opacity="0.14" transform="rotate(-20)"/>
+          <circle r="9" fill="url(#gc)"/>
+          <circle r="9" fill="none" stroke="#C89820" stroke-width="1" opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Hz row -->
+    <div class="row gap8 mt4" style="justify-content:center;">
+      <span class="hz-label">基準 A=440Hz</span>
+      <!-- Hz buttons -->
+      <svg width="90" height="40" viewBox="0 0 120 56">
+        <defs><linearGradient id="sbg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4A3018"/><stop offset="100%" stop-color="#140802"/></linearGradient><linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFF0A0"/><stop offset="100%" stop-color="#A07810"/></linearGradient></defs>
+        <rect x="0" y="0" width="52" height="52" rx="11" fill="url(#sbg)" filter="drop-shadow(0 3px 4px rgba(0,0,0,0.55))"/>
+        <rect x="0" y="0" width="52" height="52" rx="11" fill="none" stroke="#5A3A18" stroke-width="1.2"/>
+        <rect x="0" y="0" width="52" height="26" rx="11" fill="#FFFFFF" opacity="0.05"/>
+        <line x1="3" y1="17" x2="49" y2="18" stroke="#5A3010" stroke-width="0.5" opacity="0.4"/>
+        <line x1="3" y1="27" x2="49" y2="26" stroke="#3E1E08" stroke-width="0.6" opacity="0.3"/>
+        <line x1="3" y1="37" x2="49" y2="38" stroke="#6A3C18" stroke-width="0.4" opacity="0.35"/>
+        <rect x="12" y="22" width="28" height="7" rx="3.5" fill="url(#sg)"/>
+        <rect x="68" y="0" width="52" height="52" rx="11" fill="url(#sbg)" filter="drop-shadow(0 3px 4px rgba(0,0,0,0.55))"/>
+        <rect x="68" y="0" width="52" height="52" rx="11" fill="none" stroke="#5A3A18" stroke-width="1.2"/>
+        <rect x="68" y="0" width="52" height="26" rx="11" fill="#FFFFFF" opacity="0.05"/>
+        <line x1="71" y1="17" x2="117" y2="18" stroke="#5A3010" stroke-width="0.5" opacity="0.4"/>
+        <line x1="71" y1="27" x2="117" y2="26" stroke="#3E1E08" stroke-width="0.6" opacity="0.3"/>
+        <line x1="71" y1="37" x2="117" y2="38" stroke="#6A3C18" stroke-width="0.4" opacity="0.35"/>
+        <rect x="80" y="22" width="28" height="7" rx="3.5" fill="url(#sg)"/>
+        <rect x="86.5" y="9" width="7" height="33" rx="3.5" fill="url(#sg)"/>
+      </svg>
+      <!-- Choshi flute -->
+      <svg width="115" height="40" viewBox="0 0 188 56">
+        <defs><linearGradient id="fg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFF8D0"/><stop offset="10%" stop-color="#F0CC50"/><stop offset="30%" stop-color="#D4A820"/><stop offset="55%" stop-color="#C09018"/><stop offset="100%" stop-color="#906808"/></linearGradient></defs>
+        <rect x="0" y="0" width="188" height="56" rx="14" fill="url(#fg)" filter="drop-shadow(0 3px 5px rgba(0,0,0,0.55))"/>
+        <rect x="0" y="0" width="188" height="56" rx="14" fill="none" stroke="#8A6010" stroke-width="1.3"/>
+        <rect x="0" y="0" width="188" height="26" rx="14" fill="#FFFFFF" opacity="0.22"/>
+        <line x1="2" y1="20" x2="186" y2="19" stroke="#FFF8C0" stroke-width="0.5" opacity="0.25"/>
+        <line x1="2" y1="32" x2="186" y2="33" stroke="#C09018" stroke-width="0.6" opacity="0.2"/>
+        <line x1="2" y1="45" x2="186" y2="44" stroke="#E8C840" stroke-width="0.4" opacity="0.2"/>
+        <rect x="2" y="52" width="184" height="2" rx="1" fill="#6A4808" opacity="0.4"/>
+        <g transform="translate(26, 28) rotate(-35)">
+          <rect x="-5" y="-16" width="10" height="22" rx="1.5" fill="#8A5A18" opacity="0.9"/>
+          <polygon points="-5,6 5,6 0,16" fill="#5A3010" opacity="0.9"/>
+          <rect x="-5" y="-22" width="10" height="7" rx="2" fill="#C89838" opacity="0.9"/>
+          <rect x="-2" y="-16" width="3" height="20" rx="1" fill="#FFFFFF" opacity="0.15"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Drum wheel -->
+    <div class="mt16" style="width:100%; display:flex; justify-content:center;">
+      <svg width="360" height="210" viewBox="0 0 600 340">
+        <defs>
+          <linearGradient id="wb" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#8B5E2A"/><stop offset="8%" stop-color="#A67C45"/>
+            <stop offset="14%" stop-color="#7A5020"/><stop offset="22%" stop-color="#C4924E"/>
+            <stop offset="30%" stop-color="#B07838"/><stop offset="38%" stop-color="#D4A85C"/>
+            <stop offset="46%" stop-color="#E8C070"/><stop offset="54%" stop-color="#F0CC7A"/>
+            <stop offset="62%" stop-color="#D8B058"/><stop offset="70%" stop-color="#C09040"/>
+            <stop offset="78%" stop-color="#A87030"/><stop offset="86%" stop-color="#C49848"/>
+            <stop offset="93%" stop-color="#8E6028"/><stop offset="100%" stop-color="#7A5020"/>
+          </linearGradient>
+          <linearGradient id="ls" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1a0a00" stop-opacity="0.7"/>
+            <stop offset="12%" stop-color="#000" stop-opacity="0.15"/>
+            <stop offset="25%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="75%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="88%" stop-color="#000" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#1a0a00" stop-opacity="0.7"/>
+          </linearGradient>
+          <linearGradient id="cd" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#000" stop-opacity="0.55"/>
+            <stop offset="22%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="78%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
+          </linearGradient>
+          <linearGradient id="sg2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFF8D0"/><stop offset="20%" stop-color="#FFFADC"/>
+            <stop offset="50%" stop-color="#FFF6C0"/><stop offset="80%" stop-color="#F5E898"/>
+            <stop offset="100%" stop-color="#E8D870"/>
+          </linearGradient>
+          <radialGradient id="rc" cx="42%" cy="35%" r="70%">
+            <stop offset="0%" stop-color="#5C2E18"/><stop offset="55%" stop-color="#2A1008"/>
+            <stop offset="100%" stop-color="#0A0402"/>
+          </radialGradient>
+          <linearGradient id="kg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFF0A0"/><stop offset="30%" stop-color="#C89820"/>
+            <stop offset="50%" stop-color="#E8B828"/><stop offset="100%" stop-color="#F0D060"/>
+          </linearGradient>
+          <radialGradient id="ab" cx="38%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#FFF0A0"/><stop offset="35%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#C89820"/>
+          </radialGradient>
+          <filter id="ds"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/></filter>
+          <clipPath id="dbc"><rect x="85" y="22" width="430" height="296"/></clipPath>
+        </defs>
+        <ellipse cx="300" cy="334" rx="240" ry="10" fill="#000" opacity="0.35"/>
+        <g filter="url(#ds)"><ellipse cx="78" cy="170" rx="58" ry="150" fill="url(#rc)"/></g>
+        <ellipse cx="90" cy="170" rx="16" ry="148" fill="url(#kg)" opacity="0.9"/>
+        <ellipse cx="87" cy="100" rx="4" ry="28" fill="#FFF8A0" opacity="0.4"/>
+        <g filter="url(#ds)"><ellipse cx="522" cy="170" rx="58" ry="150" fill="url(#rc)"/></g>
+        <ellipse cx="510" cy="170" rx="16" ry="148" fill="url(#kg)" opacity="0.9"/>
+        <ellipse cx="513" cy="100" rx="4" ry="28" fill="#FFF8A0" opacity="0.4"/>
+        <rect x="85" y="22" width="430" height="296" fill="url(#wb)"/>
+        <g clip-path="url(#dbc)" opacity="0.28">
+          <line x1="85" y1="29"  x2="515" y2="30"  stroke="#4A2808" stroke-width="0.7"/>
+          <line x1="85" y1="35"  x2="515" y2="34"  stroke="#7A4820" stroke-width="0.4"/>
+          <line x1="85" y1="41"  x2="515" y2="42"  stroke="#3A1C08" stroke-width="0.8"/>
+          <line x1="85" y1="47"  x2="515" y2="46"  stroke="#6A3C18" stroke-width="0.5"/>
+          <line x1="85" y1="53"  x2="515" y2="54"  stroke="#4A2810" stroke-width="0.6"/>
+          <line x1="85" y1="59"  x2="515" y2="58"  stroke="#8A5528" stroke-width="0.4"/>
+          <line x1="85" y1="65"  x2="515" y2="66"  stroke="#5A3418" stroke-width="0.6"/>
+          <line x1="85" y1="71"  x2="515" y2="70"  stroke="#3C2010" stroke-width="0.5"/>
+          <line x1="85" y1="83"  x2="515" y2="84"  stroke="#5A3418" stroke-width="0.6"/>
+          <line x1="85" y1="89"  x2="515" y2="88"  stroke="#3E2010" stroke-width="0.7"/>
+          <line x1="85" y1="95"  x2="515" y2="96"  stroke="#7A4820" stroke-width="0.4"/>
+          <line x1="85" y1="101" x2="515" y2="100" stroke="#4A2C10" stroke-width="0.6"/>
+          <line x1="85" y1="107" x2="515" y2="108" stroke="#6A3C1A" stroke-width="0.5"/>
+          <line x1="85" y1="113" x2="515" y2="112" stroke="#3A2008" stroke-width="0.7"/>
+          <line x1="85" y1="119" x2="515" y2="120" stroke="#8E5428" stroke-width="0.4"/>
+          <line x1="85" y1="125" x2="515" y2="124" stroke="#5E3618" stroke-width="0.6"/>
+          <line x1="85" y1="131" x2="515" y2="132" stroke="#4A2A12" stroke-width="0.5"/>
+          <line x1="85" y1="141" x2="515" y2="142" stroke="#B08040" stroke-width="0.4"/>
+          <line x1="85" y1="147" x2="515" y2="146" stroke="#C89848" stroke-width="0.3"/>
+          <line x1="85" y1="153" x2="515" y2="154" stroke="#A07030" stroke-width="0.5"/>
+          <line x1="85" y1="159" x2="515" y2="158" stroke="#D0A050" stroke-width="0.4"/>
+          <line x1="85" y1="165" x2="515" y2="166" stroke="#C09040" stroke-width="0.4"/>
+          <line x1="85" y1="171" x2="515" y2="170" stroke="#B08838" stroke-width="0.3"/>
+          <line x1="85" y1="177" x2="515" y2="178" stroke="#D4A848" stroke-width="0.4"/>
+          <line x1="85" y1="183" x2="515" y2="182" stroke="#A07030" stroke-width="0.3"/>
+          <line x1="85" y1="189" x2="515" y2="190" stroke="#C89840" stroke-width="0.4"/>
+          <line x1="85" y1="195" x2="515" y2="194" stroke="#B08038" stroke-width="0.3"/>
+          <line x1="85" y1="201" x2="515" y2="202" stroke="#9A7030" stroke-width="0.3"/>
+          <line x1="85" y1="208" x2="515" y2="209" stroke="#5A3418" stroke-width="0.6"/>
+          <line x1="85" y1="214" x2="515" y2="213" stroke="#3E2010" stroke-width="0.7"/>
+          <line x1="85" y1="220" x2="515" y2="221" stroke="#7A4820" stroke-width="0.4"/>
+          <line x1="85" y1="226" x2="515" y2="225" stroke="#4C2A12" stroke-width="0.6"/>
+          <line x1="85" y1="232" x2="515" y2="233" stroke="#6A3A1A" stroke-width="0.5"/>
+          <line x1="85" y1="238" x2="515" y2="237" stroke="#3A1E0C" stroke-width="0.7"/>
+          <line x1="85" y1="244" x2="515" y2="245" stroke="#8C5228" stroke-width="0.4"/>
+          <line x1="85" y1="250" x2="515" y2="249" stroke="#5C3418" stroke-width="0.6"/>
+          <line x1="85" y1="256" x2="515" y2="257" stroke="#4A2810" stroke-width="0.5"/>
+          <line x1="85" y1="264" x2="515" y2="265" stroke="#5E3618" stroke-width="0.5"/>
+          <line x1="85" y1="270" x2="515" y2="269" stroke="#3E2210" stroke-width="0.6"/>
+          <line x1="85" y1="276" x2="515" y2="277" stroke="#7A4820" stroke-width="0.4"/>
+          <line x1="85" y1="282" x2="515" y2="281" stroke="#4A2A12" stroke-width="0.6"/>
+          <line x1="85" y1="288" x2="515" y2="289" stroke="#6A3C1A" stroke-width="0.5"/>
+          <line x1="85" y1="294" x2="515" y2="293" stroke="#3C1E0C" stroke-width="0.7"/>
+          <line x1="85" y1="300" x2="515" y2="301" stroke="#8A5020" stroke-width="0.4"/>
+          <line x1="85" y1="306" x2="515" y2="305" stroke="#5A3018" stroke-width="0.6"/>
+          <line x1="85" y1="312" x2="515" y2="313" stroke="#3A1E08" stroke-width="0.5"/>
+        </g>
+        <rect x="85" y="76"  width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+        <rect x="85" y="77"  width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+        <rect x="85" y="134" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+        <rect x="85" y="135" width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+        <rect x="85" y="202" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+        <rect x="85" y="260" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+        <rect x="85" y="136" width="430" height="66" fill="url(#sg2)" opacity="0.90"/>
+        <rect x="85" y="134" width="430" height="4" fill="url(#kg)" opacity="0.88"/>
+        <rect x="85" y="202" width="430" height="4" fill="url(#kg)" opacity="0.88"/>
+        <rect x="85" y="134" width="430" height="1" fill="#FFFFF0" opacity="0.55"/>
+        <rect x="85" y="22"  width="430" height="296" fill="url(#ls)"/>
+        <rect x="85" y="22"  width="430" height="296" fill="url(#cd)"/>
+        <g transform="translate(44,170)">
+          <circle r="24" fill="#1A0E04" opacity="0.5"/>
+          <circle r="22" fill="url(#ab)"/>
+          <circle r="22" fill="none" stroke="#8A6010" stroke-width="1.5"/>
+          <ellipse cx="-2" cy="-8" rx="12" ry="7" fill="#FFF" opacity="0.18"/>
+          <polygon points="-9,-12 -9,12 11,0" fill="#FFFADC" opacity="0.95"/>
+        </g>
+        <g transform="translate(556,170)">
+          <circle r="24" fill="#1A0E04" opacity="0.5"/>
+          <circle r="22" fill="url(#ab)"/>
+          <circle r="22" fill="none" stroke="#8A6010" stroke-width="1.5"/>
+          <ellipse cx="2" cy="-8" rx="12" ry="7" fill="#FFF" opacity="0.18"/>
+          <polygon points="9,-12 9,12 -11,0" fill="#FFFADC" opacity="0.95"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Slider -->
+    <div class="mt12" style="width:100%; display:flex; justify-content:center;">
+      <svg width="350" height="60" viewBox="0 0 520 80">
+        <defs>
+          <linearGradient id="ut" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0E0802"/><stop offset="35%" stop-color="#1A1006"/>
+            <stop offset="100%" stop-color="#0A0602"/>
+          </linearGradient>
+          <radialGradient id="kgo" cx="38%" cy="28%" r="68%">
+            <stop offset="0%" stop-color="#FFF8A0"/><stop offset="20%" stop-color="#F0CC50"/>
+            <stop offset="45%" stop-color="#C89820"/><stop offset="100%" stop-color="#E8B830"/>
+          </radialGradient>
+          <radialGradient id="kf" cx="40%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#4A3018"/><stop offset="100%" stop-color="#0C0602"/>
+          </radialGradient>
+          <filter id="ks"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.55"/></filter>
+        </defs>
+        <rect x="10" y="30" width="500" height="18" rx="9" fill="url(#ut)" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.7))"/>
+        <rect x="10" y="30" width="500" height="8" rx="9" fill="#FFFFFF" opacity="0.06"/>
+        <line x1="10"  y1="20" x2="10"  y2="28" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+        <line x1="63"  y1="23" x2="63"  y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="116" y1="23" x2="116" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="169" y1="23" x2="169" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="222" y1="23" x2="222" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="260" y1="20" x2="260" y2="28" stroke="#D4A820" stroke-width="2" opacity="0.9"/>
+        <line x1="298" y1="23" x2="298" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="351" y1="23" x2="351" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="404" y1="23" x2="404" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="457" y1="23" x2="457" y2="28" stroke="#8A6010" stroke-width="1" opacity="0.6"/>
+        <line x1="510" y1="20" x2="510" y2="28" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+        <line x1="10"  y1="50" x2="10"  y2="56" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+        <line x1="260" y1="50" x2="260" y2="56" stroke="#D4A820" stroke-width="2" opacity="0.9"/>
+        <line x1="510" y1="50" x2="510" y2="56" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+        <g transform="translate(260,39)" filter="url(#ks)">
+          <circle r="22" fill="#0A0604" opacity="0.5"/>
+          <circle r="20" fill="url(#kgo)"/>
+          <circle r="17" fill="none" stroke="#7A5808" stroke-width="1.5"/>
+          <circle r="15" fill="url(#kf)"/>
+          <ellipse cx="-5" cy="-7" rx="9" ry="6" fill="#FFF" opacity="0.14"/>
+          <circle r="9" fill="none" stroke="#C89820" stroke-width="1" opacity="0.5"/>
+          <circle r="3" fill="#D4A820" opacity="0.7"/>
+          <circle r="1.5" fill="#FFF8A0" opacity="0.8"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Mode buttons -->
+    <div class="mt8" style="width:100%; display:flex; justify-content:center; padding:0 18px;">
+      <svg width="354" height="66" viewBox="0 0 520 90">
+        <defs>
+          <linearGradient id="lc" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2E1C08"/><stop offset="100%" stop-color="#0A0602"/>
+          </linearGradient>
+          <linearGradient id="zb" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4A2E12"/><stop offset="100%" stop-color="#180A04"/>
+          </linearGradient>
+          <linearGradient id="ka" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFF8D0"/><stop offset="8%" stop-color="#F5E090"/>
+            <stop offset="25%" stop-color="#E8C840"/><stop offset="45%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#906808"/>
+          </linearGradient>
+          <linearGradient id="dg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#D4A820" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#F0CC50" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#D4A820" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="cs"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.6"/></filter>
+        </defs>
+        <rect x="0" y="0" width="520" height="90" rx="18" fill="url(#lc)" filter="url(#cs)"/>
+        <rect x="0" y="0" width="520" height="90" rx="18" fill="none" stroke="url(#dg)" stroke-width="1.5"/>
+        <rect x="3" y="3" width="166" height="84" rx="15" fill="url(#zb)"/>
+        <line x1="5" y1="20" x2="167" y2="21" stroke="#5A3418" stroke-width="0.5" opacity="0.4"/>
+        <line x1="5" y1="35" x2="167" y2="34" stroke="#3A2010" stroke-width="0.6" opacity="0.3"/>
+        <line x1="5" y1="50" x2="167" y2="51" stroke="#6A3C1A" stroke-width="0.4" opacity="0.4"/>
+        <line x1="5" y1="65" x2="167" y2="64" stroke="#4A2810" stroke-width="0.5" opacity="0.3"/>
+        <line x1="5" y1="78" x2="167" y2="79" stroke="#3C2010" stroke-width="0.6" opacity="0.3"/>
+        <rect x="3" y="3" width="166" height="84" rx="15" fill="#FFFFFF" opacity="0.04"/>
+        <rect x="170" y="5" width="2" height="80" fill="url(#dg)"/>
+        <rect x="348" y="5" width="2" height="80" fill="url(#dg)"/>
+        <rect x="173" y="3" width="174" height="84" fill="url(#ka)"/>
+        <rect x="173" y="3" width="174" height="84" fill="#FFFFFF" opacity="0.18" style="mask:linear-gradient(to bottom,white,transparent)"/>
+        <rect x="173" y="3" width="174" height="36" fill="#FFFFFF" opacity="0.2"/>
+        <line x1="175" y1="22" x2="345" y2="23" stroke="#FFF8D0" stroke-width="0.4" opacity="0.25"/>
+        <line x1="175" y1="38" x2="345" y2="37" stroke="#C89820" stroke-width="0.5" opacity="0.2"/>
+        <line x1="175" y1="54" x2="345" y2="55" stroke="#E8C040" stroke-width="0.3" opacity="0.2"/>
+        <line x1="175" y1="70" x2="345" y2="69" stroke="#C09018" stroke-width="0.5" opacity="0.2"/>
+        <rect x="173" y="3"  width="174" height="2" fill="#FFF8D0" opacity="0.45"/>
+        <rect x="173" y="85" width="174" height="2" fill="#806008" opacity="0.5"/>
+        <rect x="351" y="3" width="166" height="84" rx="15" fill="url(#zb)"/>
+        <line x1="353" y1="20" x2="515" y2="21" stroke="#5A3418" stroke-width="0.5" opacity="0.4"/>
+        <line x1="353" y1="35" x2="515" y2="34" stroke="#3A2010" stroke-width="0.6" opacity="0.3"/>
+        <line x1="353" y1="50" x2="515" y2="51" stroke="#6A3C1A" stroke-width="0.4" opacity="0.4"/>
+        <line x1="353" y1="65" x2="515" y2="64" stroke="#4A2810" stroke-width="0.5" opacity="0.3"/>
+        <line x1="353" y1="78" x2="515" y2="79" stroke="#3C2010" stroke-width="0.6" opacity="0.3"/>
+        <rect x="351" y="3" width="166" height="84" rx="15" fill="#FFFFFF" opacity="0.04"/>
+      </svg>
+    </div>
+
+    <!-- Auto play toggle row -->
+    <div class="row mt12 gap12" style="justify-content:flex-end; padding-right:32px;">
+      <!-- Toggle ON -->
+      <svg width="68" height="36" viewBox="0 0 90 48">
+        <defs>
+          <linearGradient id="tg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#5CE870"/><stop offset="40%" stop-color="#34C94A"/>
+            <stop offset="100%" stop-color="#22A034"/>
+          </linearGradient>
+          <radialGradient id="th" cx="38%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#FFF"/><stop offset="100%" stop-color="#D8D8D8"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="90" height="48" rx="24" fill="url(#tg)" filter="drop-shadow(0 3px 5px rgba(0,0,0,0.45))"/>
+        <rect x="2" y="2" width="86" height="20" rx="20" fill="#FFF" opacity="0.16"/>
+        <rect x="0" y="0" width="90" height="48" rx="24" fill="none" stroke="#1E8A30" stroke-width="1"/>
+        <g filter="drop-shadow(-2px 1px 4px rgba(0,0,0,0.35))">
+          <circle cx="66" cy="24" r="19" fill="url(#th)"/>
+          <circle cx="66" cy="24" r="19" fill="none" stroke="#D0D0D0" stroke-width="0.8"/>
+          <ellipse cx="60" cy="17" rx="8" ry="6" fill="#FFF" opacity="0.45"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- String buttons -->
+    <div class="mt16" style="width:100%; display:flex; justify-content:center;">
+      <svg width="360" height="140" viewBox="0 0 520 180">
+        <defs>
+          <radialGradient id="og" cx="50%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#FFF8A0"/><stop offset="15%" stop-color="#F0CC50"/>
+            <stop offset="35%" stop-color="#C89018"/><stop offset="55%" stop-color="#7A5808"/>
+            <stop offset="72%" stop-color="#C09020"/><stop offset="100%" stop-color="#F5D060"/>
+          </radialGradient>
+          <radialGradient id="uf" cx="42%" cy="32%" r="65%">
+            <stop offset="0%" stop-color="#3E2010"/><stop offset="30%" stop-color="#200E06"/>
+            <stop offset="100%" stop-color="#060200"/>
+          </radialGradient>
+          <radialGradient id="sr" cx="50%" cy="28%" r="62%">
+            <stop offset="0%" stop-color="#F8E888"/><stop offset="30%" stop-color="#C89828"/>
+            <stop offset="100%" stop-color="#D4A430"/>
+          </radialGradient>
+          <radialGradient id="rh" cx="35%" cy="20%" r="55%">
+            <stop offset="0%" stop-color="#FFFFF0" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#FFFFF0" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="fg2" cx="45%" cy="38%" r="50%">
+            <stop offset="0%" stop-color="#8A5820" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="bs"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.65"/></filter>
+        </defs>
+        <!-- Button 1 -->
+        <g transform="translate(87,90)" filter="url(#bs)">
+          <circle r="83" fill="#1A0A02" opacity="0.6"/>
+          <circle r="81" fill="url(#og)"/>
+          <circle r="81" fill="url(#rh)"/>
+          <circle r="79" fill="none" stroke="#FFF8A0" stroke-width="0.5" opacity="0.25"/>
+          <circle r="76" fill="none" stroke="#8A6010" stroke-width="0.8" opacity="0.35"/>
+          <circle r="72" fill="url(#sr)"/>
+          <circle r="70" fill="none" stroke="#FFF0A0" stroke-width="0.5" opacity="0.3"/>
+          <circle r="66" fill="url(#uf)"/>
+          <circle r="66" fill="url(#fg2)"/>
+          <ellipse cx="-12" cy="-26" rx="28" ry="16" fill="#FFF" opacity="0.07" transform="rotate(-15)"/>
+          <circle r="58" fill="none" stroke="#C89820" stroke-width="1.2" opacity="0.4"/>
+          <circle r="50" fill="none" stroke="#8A6010" stroke-width="0.6" opacity="0.25"/>
+          <circle r="4" fill="#C89820" opacity="0.5"/><circle r="2" fill="#F8E888" opacity="0.6"/>
+        </g>
+        <!-- Button 2 -->
+        <g transform="translate(260,90)" filter="url(#bs)">
+          <circle r="83" fill="#1A0A02" opacity="0.6"/>
+          <circle r="81" fill="url(#og)"/>
+          <circle r="81" fill="url(#rh)"/>
+          <circle r="79" fill="none" stroke="#FFF8A0" stroke-width="0.5" opacity="0.25"/>
+          <circle r="76" fill="none" stroke="#8A6010" stroke-width="0.8" opacity="0.35"/>
+          <circle r="72" fill="url(#sr)"/>
+          <circle r="70" fill="none" stroke="#FFF0A0" stroke-width="0.5" opacity="0.3"/>
+          <circle r="66" fill="url(#uf)"/>
+          <circle r="66" fill="url(#fg2)"/>
+          <ellipse cx="-12" cy="-26" rx="28" ry="16" fill="#FFF" opacity="0.07" transform="rotate(-15)"/>
+          <circle r="58" fill="none" stroke="#C89820" stroke-width="1.2" opacity="0.4"/>
+          <circle r="50" fill="none" stroke="#8A6010" stroke-width="0.6" opacity="0.25"/>
+          <circle r="4" fill="#C89820" opacity="0.5"/><circle r="2" fill="#F8E888" opacity="0.6"/>
+        </g>
+        <!-- Button 3 -->
+        <g transform="translate(433,90)" filter="url(#bs)">
+          <circle r="83" fill="#1A0A02" opacity="0.6"/>
+          <circle r="81" fill="url(#og)"/>
+          <circle r="81" fill="url(#rh)"/>
+          <circle r="79" fill="none" stroke="#FFF8A0" stroke-width="0.5" opacity="0.25"/>
+          <circle r="76" fill="none" stroke="#8A6010" stroke-width="0.8" opacity="0.35"/>
+          <circle r="72" fill="url(#sr)"/>
+          <circle r="70" fill="none" stroke="#FFF0A0" stroke-width="0.5" opacity="0.3"/>
+          <circle r="66" fill="url(#uf)"/>
+          <circle r="66" fill="url(#fg2)"/>
+          <ellipse cx="-12" cy="-26" rx="28" ry="16" fill="#FFF" opacity="0.07" transform="rotate(-15)"/>
+          <circle r="58" fill="none" stroke="#C89820" stroke-width="1.2" opacity="0.4"/>
+          <circle r="50" fill="none" stroke="#8A6010" stroke-width="0.6" opacity="0.25"/>
+          <circle r="4" fill="#C89820" opacity="0.5"/><circle r="2" fill="#F8E888" opacity="0.6"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Bottom gold note labels -->
+    <div class="note-labels mt4">
+      <div class="note-label">D</div>
+      <div class="note-label">G</div>
+      <div class="note-label">D'</div>
+    </div>
+
+  </div><!-- end content -->
+  </div>
+</div>
+
+<!-- Individual asset swatches -->
+<div style="display:flex;flex-direction:column;gap:20px;padding:10px">
+  <div style="color:#888;font-size:11px;font-family:monospace;text-align:center;margin-bottom:4px">Individual SVG Assets</div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">drum_wheel.svg</div>
+    <img src="drum_wheel.svg" width="300"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">string_buttons.svg</div>
+    <img src="string_buttons.svg" width="300"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">tuning_mode_buttons.svg</div>
+    <img src="tuning_mode_buttons.svg" width="300"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">slider_tuning.svg</div>
+    <img src="slider_tuning.svg" width="300"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">hz_and_flute_buttons.svg</div>
+    <img src="hz_and_flute_buttons.svg" width="300"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">gear_and_toggle.svg</div>
+    <img src="gear_and_toggle.svg" width="200"/>
+  </div>
+
+  <div style="background:#1a1008;border:1px solid #333;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+    <div style="color:#8A6820;font-size:10px;font-family:monospace">app_background.svg</div>
+    <img src="app_background.svg" width="195" height="422"/>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

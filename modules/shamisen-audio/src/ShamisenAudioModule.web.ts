@@ -16,6 +16,7 @@ class ShamisenAudioModule extends NativeModule<ShamisenAudioModuleEvents> {
   private gainNode: GainNode | null = null;
   private currentFrequency: number = 0;
   private isPlaying: boolean = false;
+  private toneType: 'electronic' | 'pipe' = 'electronic';
 
   // フェード時間（秒）
   private readonly FADE_IN_TIME = 0.01;
@@ -29,7 +30,42 @@ class ShamisenAudioModule extends NativeModule<ShamisenAudioModuleEvents> {
   }
 
   /**
-   * 指定周波数の正弦波を再生
+   * 音色タイプを設定
+   * @param type 'electronic'（正弦波）または 'pipe'（調子笛風）
+   */
+  setToneType(type: string): void {
+    this.toneType = type === 'pipe' ? 'pipe' : 'electronic';
+    // 再生中なら音色を即座に切り替え
+    if (this.isPlaying && this.currentFrequency > 0) {
+      const freq = this.currentFrequency;
+      this.stopToneInternal();
+      this.playTone(freq);
+    }
+  }
+
+  /**
+   * 調子笛風のPeriodicWaveを生成
+   * 奇数次倍音を強調した笛のような音色
+   */
+  private createPipeWave(ctx: AudioContext): PeriodicWave {
+    // 調子笛: 基本波 + 奇数倍音（笛のような温かみのある音）
+    const real = new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const imag = new Float32Array([
+      0,     // DC
+      1.0,   // 基本波
+      0.3,   // 2次倍音（リード楽器の特徴）
+      0.45,  // 3次倍音（奇数次: 笛の響き）
+      0.1,   // 4次倍音
+      0.25,  // 5次倍音（奇数次）
+      0.05,  // 6次倍音
+      0.12,  // 7次倍音（奇数次）
+      0.03,  // 8次倍音
+    ]);
+    return ctx.createPeriodicWave(real, imag, { disableNormalization: false });
+  }
+
+  /**
+   * 指定周波数の音を再生
    */
   playTone(frequency: number): void {
     // 同じ周波数を再生中なら何もしない
@@ -46,7 +82,16 @@ class ShamisenAudioModule extends NativeModule<ShamisenAudioModuleEvents> {
 
     // オシレーター作成
     this.oscillator = ctx.createOscillator();
-    this.oscillator.type = 'sine';
+
+    if (this.toneType === 'pipe') {
+      // 調子笛モード: カスタム波形
+      const pipeWave = this.createPipeWave(ctx);
+      this.oscillator.setPeriodicWave(pipeWave);
+    } else {
+      // 電子音モード: 正弦波
+      this.oscillator.type = 'sine';
+    }
+
     this.oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
 
     // ゲインノード（音量制御・フェード処理）

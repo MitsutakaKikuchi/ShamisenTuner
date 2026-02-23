@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 80" width="520" height="80">
+  <defs>
+    <!-- Track - black urushi lacquer -->
+    <linearGradient id="urushiTrack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#0E0802"/>
+      <stop offset="35%"  stop-color="#1A1006"/>
+      <stop offset="60%"  stop-color="#241408"/>
+      <stop offset="100%" stop-color="#0A0602"/>
+    </linearGradient>
+    <!-- Track inner highlight line -->
+    <linearGradient id="trackSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.0"/>
+      <stop offset="15%"  stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="85%"  stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+    </linearGradient>
+    <!-- Knob outer gold ring -->
+    <radialGradient id="knobGoldOuter" cx="38%" cy="28%" r="68%">
+      <stop offset="0%"   stop-color="#FFF8A0"/>
+      <stop offset="20%"  stop-color="#F0CC50"/>
+      <stop offset="45%"  stop-color="#C89820"/>
+      <stop offset="68%"  stop-color="#9A7010"/>
+      <stop offset="88%"  stop-color="#C09020"/>
+      <stop offset="100%" stop-color="#E8B830"/>
+    </radialGradient>
+    <!-- Knob face - dark urushi with sheen -->
+    <radialGradient id="knobFace" cx="40%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#4A3018"/>
+      <stop offset="35%"  stop-color="#281608"/>
+      <stop offset="70%"  stop-color="#180A04"/>
+      <stop offset="100%" stop-color="#0C0602"/>
+    </radialGradient>
+    <!-- Knob highlight -->
+    <radialGradient id="knobHighlight" cx="35%" cy="25%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+    </radialGradient>
+    <filter id="knobShadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="trackInset">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+
+  <!-- Track -->
+  <rect x="10" y="30" width="500" height="18" rx="9" fill="url(#urushiTrack)" filter="url(#trackInset)"/>
+  <!-- Track surface sheen -->
+  <rect x="10" y="30" width="500" height="8" rx="9" fill="url(#trackSheen)"/>
+  <!-- Track border -->
+  <rect x="10" y="30" width="500" height="18" rx="9" fill="none" stroke="#0A0602" stroke-width="1"/>
+
+  <!-- Tick marks (gold coloured) -->
+  <line x1="10"  y1="20" x2="10"  y2="28" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+  <line x1="63"  y1="23" x2="63"  y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="116" y1="23" x2="116" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="169" y1="23" x2="169" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="222" y1="23" x2="222" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <!-- Center major tick -->
+  <line x1="260" y1="20" x2="260" y2="28" stroke="#D4A820" stroke-width="2"   opacity="0.9"/>
+  <line x1="298" y1="23" x2="298" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="351" y1="23" x2="351" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="404" y1="23" x2="404" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="457" y1="23" x2="457" y2="28" stroke="#8A6010" stroke-width="1"   opacity="0.6"/>
+  <line x1="510" y1="20" x2="510" y2="28" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Below tick marks -->
+  <line x1="10"  y1="50" x2="10"  y2="56" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+  <line x1="260" y1="50" x2="260" y2="56" stroke="#D4A820" stroke-width="2"   opacity="0.9"/>
+  <line x1="510" y1="50" x2="510" y2="56" stroke="#D4A820" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Knob at center (0 position) -->
+  <g transform="translate(260, 39)" filter="url(#knobShadow)">
+    <!-- Knob outer glow/shadow ring -->
+    <circle r="22" fill="#0A0604" opacity="0.5"/>
+    <!-- Outer gold ring -->
+    <circle r="20" fill="url(#knobGoldOuter)"/>
+    <!-- Separator groove -->
+    <circle r="17" fill="none" stroke="#7A5808" stroke-width="1.5"/>
+    <!-- Face -->
+    <circle r="15" fill="url(#knobFace)"/>
+    <!-- Face highlight -->
+    <circle r="15" fill="url(#knobHighlight)"/>
+    <!-- Center gold ring detail -->
+    <circle r="9" fill="none" stroke="#C89820" stroke-width="1" opacity="0.5"/>
+    <!-- Center dot - makie -->
+    <circle r="3" fill="#D4A820" opacity="0.7"/>
+    <circle r="1.5" fill="#FFF8A0" opacity="0.8"/>
+  </g>
+</svg>

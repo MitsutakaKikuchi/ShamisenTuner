@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.gold,
     borderRadius: BORDER_RADIUS.sm,
     overflow: 'hidden',
-    backgroundColor: '#2b1b11',
+    backgroundColor: 'rgba(43, 27, 17, 0.85)',
   },
   tab: {
     flex: 1,

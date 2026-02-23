@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">
+  <defs>
+    <linearGradient id="woodBase" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#8B5E2A"/>
+      <stop offset="8%"   stop-color="#A67C45"/>
+      <stop offset="14%"  stop-color="#7A5020"/>
+      <stop offset="22%"  stop-color="#C4924E"/>
+      <stop offset="30%"  stop-color="#B07838"/>
+      <stop offset="38%"  stop-color="#D4A85C"/>
+      <stop offset="46%"  stop-color="#E8C070"/>
+      <stop offset="54%"  stop-color="#F0CC7A"/>
+      <stop offset="62%"  stop-color="#D8B058"/>
+      <stop offset="70%"  stop-color="#C09040"/>
+      <stop offset="78%"  stop-color="#A87030"/>
+      <stop offset="86%"  stop-color="#C49848"/>
+      <stop offset="93%"  stop-color="#8E6028"/>
+      <stop offset="100%" stop-color="#7A5020"/>
+    </linearGradient>
+    <linearGradient id="lacquerSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#1a0a00" stop-opacity="0.7"/>
+      <stop offset="5%"   stop-color="#3a1a05" stop-opacity="0.4"/>
+      <stop offset="12%"  stop-color="#000000" stop-opacity="0.15"/>
+      <stop offset="25%"  stop-color="#000000" stop-opacity="0.0"/>
+      <stop offset="75%"  stop-color="#000000" stop-opacity="0.0"/>
+      <stop offset="88%"  stop-color="#000000" stop-opacity="0.15"/>
+      <stop offset="95%"  stop-color="#3a1a05" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1a0a00" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="cylinderDepth" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#000000" stop-opacity="0.55"/>
+      <stop offset="10%"  stop-color="#000000" stop-opacity="0.2"/>
+      <stop offset="22%"  stop-color="#000000" stop-opacity="0.0"/>
+      <stop offset="78%"  stop-color="#000000" stop-opacity="0.0"/>
+      <stop offset="90%"  stop-color="#000000" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="selectedGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFF8D0"/>
+      <stop offset="20%"  stop-color="#FFFADC"/>
+      <stop offset="50%"  stop-color="#FFF6C0"/>
+      <stop offset="80%"  stop-color="#F5E898"/>
+      <stop offset="100%" stop-color="#E8D870"/>
+    </linearGradient>
+    <radialGradient id="rosewoodCap" cx="42%" cy="35%" r="70%">
+      <stop offset="0%"   stop-color="#5C2E18"/>
+      <stop offset="25%"  stop-color="#3E1C0C"/>
+      <stop offset="55%"  stop-color="#2A1008"/>
+      <stop offset="80%"  stop-color="#180804"/>
+      <stop offset="100%" stop-color="#0A0402"/>
+    </radialGradient>
+    <linearGradient id="kinGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFF0A0"/>
+      <stop offset="12%"  stop-color="#F0CC50"/>
+      <stop offset="30%"  stop-color="#C89820"/>
+      <stop offset="50%"  stop-color="#E8B828"/>
+      <stop offset="68%"  stop-color="#A87C10"/>
+      <stop offset="85%"  stop-color="#D4A428"/>
+      <stop offset="100%" stop-color="#F0D060"/>
+    </linearGradient>
+    <radialGradient id="arrowBtn" cx="38%" cy="30%" r="70%">
+      <stop offset="0%"   stop-color="#FFF0A0"/>
+      <stop offset="35%"  stop-color="#D4A820"/>
+      <stop offset="70%"  stop-color="#9A7010"/>
+      <stop offset="100%" stop-color="#C89820"/>
+    </radialGradient>
+    <filter id="drumShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <clipPath id="drumBodyClip">
+      <rect x="85" y="22" width="430" height="296"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="300" cy="334" rx="240" ry="10" fill="#000000" opacity="0.35"/>
+
+  <!-- Left endcap -->
+  <g filter="url(#drumShadow)">
+    <ellipse cx="78" cy="170" rx="58" ry="150" fill="url(#rosewoodCap)"/>
+  </g>
+  <ellipse cx="78" cy="170" rx="48" ry="138" fill="none" stroke="#4a2010" stroke-width="2" opacity="0.5"/>
+  <ellipse cx="90" cy="170" rx="16" ry="148" fill="url(#kinGold)" opacity="0.9"/>
+  <ellipse cx="90" cy="170" rx="9"  ry="148" fill="#C89820" opacity="0.4"/>
+  <ellipse cx="87" cy="100" rx="4" ry="28" fill="#FFF8A0" opacity="0.4"/>
+
+  <!-- Right endcap -->
+  <g filter="url(#drumShadow)">
+    <ellipse cx="522" cy="170" rx="58" ry="150" fill="url(#rosewoodCap)"/>
+  </g>
+  <ellipse cx="522" cy="170" rx="48" ry="138" fill="none" stroke="#4a2010" stroke-width="2" opacity="0.5"/>
+  <ellipse cx="510" cy="170" rx="16" ry="148" fill="url(#kinGold)" opacity="0.9"/>
+  <ellipse cx="510" cy="170" rx="9"  ry="148" fill="#C89820" opacity="0.4"/>
+  <ellipse cx="513" cy="100" rx="4" ry="28" fill="#FFF8A0" opacity="0.4"/>
+
+  <!-- Cylinder base wood -->
+  <rect x="85" y="22" width="430" height="296" fill="url(#woodBase)"/>
+
+  <!-- Wood grain lines -->
+  <g clip-path="url(#drumBodyClip)" opacity="0.25">
+    <line x1="85" y1="25"  x2="515" y2="26" stroke="#4A2808" stroke-width="0.7"/>
+    <line x1="85" y1="29"  x2="515" y2="30" stroke="#7A4820" stroke-width="0.4"/>
+    <line x1="85" y1="33"  x2="515" y2="32" stroke="#3A1C08" stroke-width="0.8"/>
+    <line x1="85" y1="37"  x2="515" y2="38" stroke="#6A3C18" stroke-width="0.5"/>
+    <line x1="85" y1="41"  x2="515" y2="40" stroke="#4A2810" stroke-width="0.6"/>
+    <line x1="85" y1="45"  x2="515" y2="46" stroke="#8A5528" stroke-width="0.4"/>
+    <line x1="85" y1="49"  x2="515" y2="48" stroke="#5A3418" stroke-width="0.6"/>
+    <line x1="85" y1="53"  x2="515" y2="54" stroke="#3C2010" stroke-width="0.5"/>
+    <line x1="85" y1="57"  x2="515" y2="56" stroke="#6E4020" stroke-width="0.7"/>
+    <line x1="85" y1="61"  x2="515" y2="62" stroke="#4A2C12" stroke-width="0.4"/>
+    <line x1="85" y1="65"  x2="515" y2="64" stroke="#7A4A22" stroke-width="0.6"/>
+    <line x1="85" y1="69"  x2="515" y2="70" stroke="#3C2010" stroke-width="0.8"/>
+    <line x1="85" y1="73"  x2="515" y2="72" stroke="#5E3818" stroke-width="0.4"/>
+    <line x1="85" y1="79"  x2="515" y2="80" stroke="#5A3418" stroke-width="0.6"/>
+    <line x1="85" y1="83"  x2="515" y2="82" stroke="#3E2010" stroke-width="0.7"/>
+    <line x1="85" y1="87"  x2="515" y2="88" stroke="#7A4820" stroke-width="0.4"/>
+    <line x1="85" y1="91"  x2="515" y2="90" stroke="#4A2C10" stroke-width="0.6"/>
+    <line x1="85" y1="95"  x2="515" y2="96" stroke="#6A3C1A" stroke-width="0.5"/>
+    <line x1="85" y1="99"  x2="515" y2="98" stroke="#3A2008" stroke-width="0.7"/>
+    <line x1="85" y1="103" x2="515" y2="104" stroke="#8E5428" stroke-width="0.4"/>
+    <line x1="85" y1="107" x2="515" y2="106" stroke="#5E3618" stroke-width="0.6"/>
+    <line x1="85" y1="111" x2="515" y2="112" stroke="#4A2A12" stroke-width="0.5"/>
+    <line x1="85" y1="115" x2="515" y2="114" stroke="#6E4020" stroke-width="0.7"/>
+    <line x1="85" y1="119" x2="515" y2="120" stroke="#3C1E0C" stroke-width="0.5"/>
+    <line x1="85" y1="123" x2="515" y2="122" stroke="#7C4A22" stroke-width="0.6"/>
+    <line x1="85" y1="127" x2="515" y2="128" stroke="#4E2E14" stroke-width="0.4"/>
+    <line x1="85" y1="131" x2="515" y2="130" stroke="#5A3218" stroke-width="0.7"/>
+    <!-- Selected row - warmer grain -->
+    <line x1="85" y1="139" x2="515" y2="140" stroke="#B08040" stroke-width="0.4"/>
+    <line x1="85" y1="143" x2="515" y2="142" stroke="#C89848" stroke-width="0.3"/>
+    <line x1="85" y1="147" x2="515" y2="148" stroke="#A07030" stroke-width="0.5"/>
+    <line x1="85" y1="151" x2="515" y2="150" stroke="#B88A40" stroke-width="0.3"/>
+    <line x1="85" y1="155" x2="515" y2="156" stroke="#D0A050" stroke-width="0.4"/>
+    <line x1="85" y1="159" x2="515" y2="158" stroke="#A87838" stroke-width="0.3"/>
+    <line x1="85" y1="163" x2="515" y2="164" stroke="#C09040" stroke-width="0.4"/>
+    <line x1="85" y1="167" x2="515" y2="166" stroke="#B08838" stroke-width="0.3"/>
+    <line x1="85" y1="171" x2="515" y2="172" stroke="#D4A848" stroke-width="0.4"/>
+    <line x1="85" y1="175" x2="515" y2="174" stroke="#A07030" stroke-width="0.3"/>
+    <line x1="85" y1="179" x2="515" y2="180" stroke="#C89840" stroke-width="0.4"/>
+    <line x1="85" y1="183" x2="515" y2="182" stroke="#B08038" stroke-width="0.3"/>
+    <line x1="85" y1="187" x2="515" y2="188" stroke="#D8B048" stroke-width="0.4"/>
+    <line x1="85" y1="191" x2="515" y2="190" stroke="#A87838" stroke-width="0.3"/>
+    <line x1="85" y1="195" x2="515" y2="196" stroke="#BE9240" stroke-width="0.4"/>
+    <line x1="85" y1="199" x2="515" y2="198" stroke="#9A7030" stroke-width="0.3"/>
+    <line x1="85" y1="206" x2="515" y2="207" stroke="#5A3418" stroke-width="0.6"/>
+    <line x1="85" y1="210" x2="515" y2="209" stroke="#3E2010" stroke-width="0.7"/>
+    <line x1="85" y1="214" x2="515" y2="215" stroke="#7A4820" stroke-width="0.4"/>
+    <line x1="85" y1="218" x2="515" y2="217" stroke="#4C2A12" stroke-width="0.6"/>
+    <line x1="85" y1="222" x2="515" y2="223" stroke="#6A3A1A" stroke-width="0.5"/>
+    <line x1="85" y1="226" x2="515" y2="225" stroke="#3A1E0C" stroke-width="0.7"/>
+    <line x1="85" y1="230" x2="515" y2="231" stroke="#8C5228" stroke-width="0.4"/>
+    <line x1="85" y1="234" x2="515" y2="233" stroke="#5C3418" stroke-width="0.6"/>
+    <line x1="85" y1="238" x2="515" y2="239" stroke="#4A2810" stroke-width="0.5"/>
+    <line x1="85" y1="242" x2="515" y2="241" stroke="#6C3E1C" stroke-width="0.7"/>
+    <line x1="85" y1="246" x2="515" y2="247" stroke="#3C2010" stroke-width="0.5"/>
+    <line x1="85" y1="250" x2="515" y2="249" stroke="#7A4820" stroke-width="0.6"/>
+    <line x1="85" y1="254" x2="515" y2="255" stroke="#4E2C12" stroke-width="0.4"/>
+    <line x1="85" y1="258" x2="515" y2="257" stroke="#5E3418" stroke-width="0.7"/>
+    <line x1="85" y1="264" x2="515" y2="265" stroke="#5E3618" stroke-width="0.5"/>
+    <line x1="85" y1="268" x2="515" y2="267" stroke="#3E2210" stroke-width="0.6"/>
+    <line x1="85" y1="272" x2="515" y2="273" stroke="#7A4820" stroke-width="0.4"/>
+    <line x1="85" y1="276" x2="515" y2="275" stroke="#4A2A12" stroke-width="0.6"/>
+    <line x1="85" y1="280" x2="515" y2="281" stroke="#6A3C1A" stroke-width="0.5"/>
+    <line x1="85" y1="284" x2="515" y2="283" stroke="#3C1E0C" stroke-width="0.7"/>
+    <line x1="85" y1="288" x2="515" y2="289" stroke="#8A5020" stroke-width="0.4"/>
+    <line x1="85" y1="292" x2="515" y2="291" stroke="#5A3018" stroke-width="0.6"/>
+    <line x1="85" y1="296" x2="515" y2="297" stroke="#3A1E08" stroke-width="0.5"/>
+    <line x1="85" y1="300" x2="515" y2="299" stroke="#6E4020" stroke-width="0.7"/>
+    <line x1="85" y1="304" x2="515" y2="305" stroke="#4C2A10" stroke-width="0.5"/>
+    <line x1="85" y1="308" x2="515" y2="307" stroke="#5A3018" stroke-width="0.6"/>
+    <line x1="85" y1="312" x2="515" y2="313" stroke="#3C1E08" stroke-width="0.7"/>
+  </g>
+
+  <!-- Row dividers etched look -->
+  <rect x="85" y="76"  width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+  <rect x="85" y="77"  width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+  <rect x="85" y="134" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+  <rect x="85" y="135" width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+  <rect x="85" y="202" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+  <rect x="85" y="203" width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+  <rect x="85" y="260" width="430" height="2" fill="#3A1C08" opacity="0.6"/>
+  <rect x="85" y="261" width="430" height="1" fill="#FFF0A0" opacity="0.1"/>
+
+  <!-- Selected row glow -->
+  <rect x="85" y="136" width="430" height="66" fill="url(#selectedGlow)" opacity="0.90"/>
+
+  <!-- Selected row gold borders -->
+  <rect x="85" y="134" width="430" height="4" fill="url(#kinGold)" opacity="0.88"/>
+  <rect x="85" y="202" width="430" height="4" fill="url(#kinGold)" opacity="0.88"/>
+  <rect x="85" y="134" width="430" height="1" fill="#FFFFF0" opacity="0.55"/>
+  <rect x="85" y="205" width="430" height="1" fill="#FFFFF0" opacity="0.3"/>
+
+  <!-- 3D shading -->
+  <rect x="85" y="22" width="430" height="296" fill="url(#lacquerSide)"/>
+  <rect x="85" y="22" width="430" height="296" fill="url(#cylinderDepth)"/>
+  <!-- Gloss highlight -->
+  <rect x="105" y="22" width="390" height="38" fill="#FFFFF8" opacity="0.05" rx="2"/>
+
+  <!-- Left arrow button -->
+  <g transform="translate(44, 170)">
+    <circle r="24" fill="#1A0E04" opacity="0.5"/>
+    <circle r="22" fill="url(#arrowBtn)"/>
+    <circle r="22" fill="none" stroke="#8A6010" stroke-width="1.5"/>
+    <ellipse cx="-2" cy="-8" rx="12" ry="7" fill="#FFFFFF" opacity="0.18"/>
+    <polygon points="-9,-12 -9,12 11,0" fill="#FFFADC" opacity="0.95"/>
+  </g>
+
+  <!-- Right arrow button -->
+  <g transform="translate(556, 170)">
+    <circle r="24" fill="#1A0E04" opacity="0.5"/>
+    <circle r="22" fill="url(#arrowBtn)"/>
+    <circle r="22" fill="none" stroke="#8A6010" stroke-width="1.5"/>
+    <ellipse cx="2" cy="-8" rx="12" ry="7" fill="#FFFFFF" opacity="0.18"/>
+    <polygon points="9,-12 9,12 -11,0" fill="#FFFADC" opacity="0.95"/>
+  </g>
+</svg>

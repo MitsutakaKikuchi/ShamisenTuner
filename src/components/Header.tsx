@@ -7,6 +7,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Svg, { Line as SvgLine, Defs, LinearGradient as SvgLinGrad, Stop } from 'react-native-svg';
 import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 
 type HeaderProps = {
@@ -16,7 +17,7 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
   return (
     <LinearGradient
-      colors={['#2a1508', '#210e04', '#1a0a02']}
+      colors={['rgba(74, 48, 24, 0.95)', 'rgba(58, 34, 16, 0.9)', 'rgba(40, 20, 8, 0.85)']}
       style={styles.container}
     >
       {/* 和柄パターン装飾エリア */}
@@ -28,8 +29,21 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
         </View>
       </View>
 
-      {/* 装飾ライン（上） */}
-      <View style={styles.decorativeLine} />
+      {/* 装飾ライン（上） - 金色グラデーション */}
+      <Svg width="100%" height={2} style={styles.goldSvgLine}>
+        <Defs>
+          <SvgLinGrad id="headerGold" x1="0%" y1="0%" x2="100%" y2="0%">
+            <Stop offset="0%" stopColor="#D4A820" stopOpacity={0} />
+            <Stop offset="15%" stopColor="#F0CC50" stopOpacity={0.6} />
+            <Stop offset="35%" stopColor="#FFF0A0" stopOpacity={0.9} />
+            <Stop offset="50%" stopColor="#F0CC50" stopOpacity={1.0} />
+            <Stop offset="65%" stopColor="#FFF0A0" stopOpacity={0.9} />
+            <Stop offset="85%" stopColor="#F0CC50" stopOpacity={0.6} />
+            <Stop offset="100%" stopColor="#D4A820" stopOpacity={0} />
+          </SvgLinGrad>
+        </Defs>
+        <SvgLine x1="0" y1="1" x2="100%" y2="1" stroke="url(#headerGold)" strokeWidth={2} />
+      </Svg>
       
       <View style={styles.content}>
         <Text style={styles.title}>三味線 調弦</Text>
@@ -40,8 +54,21 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
         )}
       </View>
       
-      {/* 装飾ライン（下） */}
-      <View style={styles.decorativeLine} />
+      {/* 装飾ライン（下） - 金色グラデーション */}
+      <Svg width="100%" height={3} style={styles.goldSvgLine}>
+        <Defs>
+          <SvgLinGrad id="headerGoldBottom" x1="0%" y1="0%" x2="100%" y2="0%">
+            <Stop offset="0%" stopColor="#D4A820" stopOpacity={0} />
+            <Stop offset="15%" stopColor="#F0CC50" stopOpacity={0.6} />
+            <Stop offset="35%" stopColor="#FFF0A0" stopOpacity={0.9} />
+            <Stop offset="50%" stopColor="#F0CC50" stopOpacity={1.0} />
+            <Stop offset="65%" stopColor="#FFF0A0" stopOpacity={0.9} />
+            <Stop offset="85%" stopColor="#F0CC50" stopOpacity={0.6} />
+            <Stop offset="100%" stopColor="#D4A820" stopOpacity={0} />
+          </SvgLinGrad>
+        </Defs>
+        <SvgLine x1="0" y1="1.5" x2="100%" y2="1.5" stroke="url(#headerGoldBottom)" strokeWidth={3} />
+      </Svg>
     </LinearGradient>
   );
 };
@@ -67,11 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: COLORS.gold,
   },
-  decorativeLine: {
-    height: 1.5,
-    backgroundColor: COLORS.borderGold,
-    marginHorizontal: SPACING.xl,
-    opacity: 0.5,
+  goldSvgLine: {
+    marginHorizontal: 0,
   },
   content: {
     flexDirection: 'row',

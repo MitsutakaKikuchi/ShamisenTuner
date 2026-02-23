@@ -9,8 +9,8 @@
 
 import { StatusBar } from 'expo-status-bar';
 import { useKeepAwake } from 'expo-keep-awake';
-import { useState, useCallback } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { useState, useCallback, useEffect } from 'react';
+import { StyleSheet, View, SafeAreaView, ScrollView, ImageBackground } from 'react-native';
 
 import { Header } from './src/components/Header';
 import { CalibrationControl } from './src/components/CalibrationControl';
@@ -20,7 +20,6 @@ import { TuningModeSelector } from './src/components/TuningModeSelector';
 import { AutoPlayToggle } from './src/components/AutoPlayToggle';
 import { StringPlayButtons } from './src/components/StringPlayButtons';
 import { Footer } from './src/components/Footer';
-import { BackgroundStrings } from './src/components/BackgroundStrings';
 
 import {
   BASE_NOTES,
@@ -33,7 +32,6 @@ import {
   CALIBRATION_MIN_HZ,
   CALIBRATION_MAX_HZ,
 } from './src/constants/tuningData';
-import { COLORS } from './src/constants/theme';
 import { calculateStringFrequency, calculateBaseFrequency } from './src/utils/frequencyCalculator';
 import { useAutoPlay } from './src/hooks/useAutoPlay';
 import type { AppState } from './src/types/appState';
@@ -57,6 +55,15 @@ export default function App() {
   });
 
   // === イベントハンドラ（useCallbackでメモ化） ===
+
+  // 音色タイプの同期（変更時にネイティブモジュールへ反映）
+  useEffect(() => {
+    try {
+      ShamisenAudioModule.setToneType(appState.toneType);
+    } catch (error) {
+      console.error('音色タイプの設定に失敗:', error);
+    }
+  }, [appState.toneType]);
 
   // 基準ピッチ: 減少
   const handleCalibrationDecrease = useCallback(() => {
@@ -180,81 +187,86 @@ export default function App() {
 
   // === レンダリング ===
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="light" />
-      {/* 背景の3本金色絃 */}
-      <BackgroundStrings />
-      <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-        >
-          {/* ヘッダー */}
-          <Header />
+    <ImageBackground
+      source={require('./assets/background.jpeg')}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style="light" />
+        <View style={styles.container}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+          >
+            {/* ヘッダー */}
+            <Header />
 
-          {/* 基準ピッチ調整 + 調子笛 */}
-          <CalibrationControl
-            calibrationHz={appState.calibrationHz}
-            toneType={appState.toneType}
-            onDecrease={handleCalibrationDecrease}
-            onIncrease={handleCalibrationIncrease}
-            onToneTypeToggle={handleToneTypeToggle}
-          />
-
-          {/* 基音選択ドラムロール */}
-          <BasePitchPicker
-            notes={BASE_NOTES}
-            selectedNoteId={appState.baseNoteId}
-            onNoteChange={handleBaseNoteChange}
-          />
-
-          {/* 微調整（5段階ステップ） */}
-          <FineTuneControl
-            fineTuneCents={appState.fineTuneCents}
-            onValueChange={handleFineTuneChange}
-          />
-
-          {/* 調弦モード選択 */}
-          <TuningModeSelector
-            modes={TUNING_MODES}
-            selectedModeId={appState.tuningModeId}
-            onModeChange={handleTuningModeChange}
-          />
-
-          {/* 自動再生トグル */}
-          <AutoPlayToggle
-            isAutoPlaying={appState.isAutoPlaying}
-            onToggle={handleAutoPlayToggle}
-          />
-
-          {/* 糸の再生ボタン（トグル方式） */}
-          <View style={styles.stringSection}>
-            <StringPlayButtons
-              activeStringId={appState.activeStringId}
-              baseNoteId={appState.baseNoteId}
-              tuningModeId={appState.tuningModeId}
-              isAutoPlaying={appState.isAutoPlaying}
-              onStringToggle={handleStringToggle}
+            {/* 基準ピッチ調整 + 調子笛 */}
+            <CalibrationControl
+              calibrationHz={appState.calibrationHz}
+              toneType={appState.toneType}
+              onDecrease={handleCalibrationDecrease}
+              onIncrease={handleCalibrationIncrease}
+              onToneTypeToggle={handleToneTypeToggle}
             />
-          </View>
 
-          {/* フッター */}
-          <Footer />
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+            {/* 基音選択ドラムロール */}
+            <BasePitchPicker
+              notes={BASE_NOTES}
+              selectedNoteId={appState.baseNoteId}
+              onNoteChange={handleBaseNoteChange}
+            />
+
+            {/* 微調整（5段階ステップ） */}
+            <FineTuneControl
+              fineTuneCents={appState.fineTuneCents}
+              onValueChange={handleFineTuneChange}
+            />
+
+            {/* 調弦モード選択 */}
+            <TuningModeSelector
+              modes={TUNING_MODES}
+              selectedModeId={appState.tuningModeId}
+              onModeChange={handleTuningModeChange}
+            />
+
+            {/* 自動再生トグル */}
+            <AutoPlayToggle
+              isAutoPlaying={appState.isAutoPlaying}
+              onToggle={handleAutoPlayToggle}
+            />
+
+            {/* 糸の再生ボタン（トグル方式） */}
+            <View style={styles.stringSection}>
+              <StringPlayButtons
+                activeStringId={appState.activeStringId}
+                baseNoteId={appState.baseNoteId}
+                tuningModeId={appState.tuningModeId}
+                isAutoPlaying={appState.isAutoPlaying}
+                onStringToggle={handleStringToggle}
+              />
+            </View>
+
+            {/* フッター */}
+            <Footer />
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+  },
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.backgroundDark,
   },
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundDark,
   },
   scrollContent: {
     flexGrow: 1,

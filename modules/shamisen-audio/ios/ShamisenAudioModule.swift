@@ -9,6 +9,7 @@ public class ShamisenAudioModule: Module {
   // 現在の音声状態
   private var currentFrequency: Float = 0.0
   private var isPlaying: Bool = false
+  private var toneType: String = "electronic" // "electronic" or "pipe"
   
   // フェード処理用
   private let sampleRate: Double = 44100.0
@@ -38,6 +39,11 @@ public class ShamisenAudioModule: Module {
     // 音を停止
     Function("stopTone") {
       self.stopTone()
+    }
+
+    // 音色タイプを設定
+    Function("setToneType") { (type: String) in
+      self.setToneType(type: type)
     }
   }
   
@@ -73,7 +79,7 @@ public class ShamisenAudioModule: Module {
     }
   }
   
-  // 正弦波を生成して再生
+  // 正弦波または調子笛波形を生成して再生
   private func playTone(frequency: Float) {
     // 既に同じ周波数を再生中の場合は何もしない
     if isPlaying && currentFrequency == frequency {
@@ -90,7 +96,7 @@ public class ShamisenAudioModule: Module {
     
     isPlaying = true
     
-    // 正弦波バッファを生成
+    // バッファを生成
     let bufferSize: AVAudioFrameCount = 4410 // 約0.1秒分
     let format = AVAudioFormat(
       standardFormatWithSampleRate: sampleRate,
@@ -106,15 +112,34 @@ public class ShamisenAudioModule: Module {
     
     buffer.frameLength = bufferSize
     
-    // 正弦波を生成（フェードイン処理付き）
+    // 波形を生成（フェードイン処理付き）
     let channels = UnsafeBufferPointer(
       start: buffer.floatChannelData,
       count: Int(format.channelCount)
     )
     
+    let isPipe = (toneType == "pipe")
+    
     for frame in 0..<Int(bufferSize) {
       let time = Float(frame) / Float(sampleRate)
-      var sample = sin(2.0 * Float.pi * frequency * time)
+      let phase = 2.0 * Float.pi * frequency * time
+      
+      var sample: Float
+      if isPipe {
+        // 調子笛風波形: 奇数次倍音を強調したリード楽器的な音色
+        sample = sin(phase)                    // 基本波
+          + 0.30 * sin(2.0 * phase)           // 2次倍音
+          + 0.45 * sin(3.0 * phase)           // 3次倍音（奇数次）
+          + 0.10 * sin(4.0 * phase)           // 4次倍音
+          + 0.25 * sin(5.0 * phase)           // 5次倍音（奇数次）
+          + 0.05 * sin(6.0 * phase)           // 6次倍音
+          + 0.12 * sin(7.0 * phase)           // 7次倍音（奇数次）
+        // 正規化（合計振幅 ≈ 2.27 → スケール）
+        sample *= 0.44
+      } else {
+        // 電子音: 正弦波
+        sample = sin(phase)
+      }
       
       // フェードイン処理
       if frame < fadeInSamples {
@@ -132,6 +157,18 @@ public class ShamisenAudioModule: Module {
     // ループ再生
     audioPlayerNode.play()
     audioPlayerNode.scheduleBuffer(buffer, at: nil, options: .loops)
+  }
+
+  // 音色タイプを設定
+  private func setToneType(type: String) {
+    toneType = type
+    // 再生中なら音色を即座に切り替え
+    if isPlaying && currentFrequency > 0 {
+      let freq = currentFrequency
+      audioPlayerNode.stop()
+      isPlaying = false
+      playTone(frequency: freq)
+    }
   }
   
   // 音を停止（フェードアウト処理あり）
@@ -182,7 +219,20 @@ public class ShamisenAudioModule: Module {
     
     for frame in 0..<fadeOutSamples {
       let time = Float(frame) / Float(sampleRate)
-      var sample = sin(2.0 * Float.pi * currentFrequency * time)
+      let phase = 2.0 * Float.pi * currentFrequency * time
+      
+      var sample: Float
+      if toneType == "pipe" {
+        sample = (sin(phase)
+          + 0.30 * sin(2.0 * phase)
+          + 0.45 * sin(3.0 * phase)
+          + 0.10 * sin(4.0 * phase)
+          + 0.25 * sin(5.0 * phase)
+          + 0.05 * sin(6.0 * phase)
+          + 0.12 * sin(7.0 * phase)) * 0.44
+      } else {
+        sample = sin(phase)
+      }
       
       // フェードアウト処理
       let fadeRatio = Float(fadeOutSamples - frame) / Float(fadeOutSamples)

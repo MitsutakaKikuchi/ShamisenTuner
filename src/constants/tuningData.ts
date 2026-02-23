@@ -64,7 +64,7 @@ export const TUNING_MODES: TuningMode[] = [
     ratios: {
       string1: 1,
       string2: 4 / 3,  // 完全4度
-      string3: 16 / 9, // 短7度
+      string3: 16 / 9, // 二の糸基準の完全4度上 (4/3 × 4/3 = 16/9)
     },
   },
 ];
