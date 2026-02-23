@@ -1,11 +1,12 @@
 /**
  * アプリヘッダーコンポーネント
- * タイトル「三味線 調弦」と調子笛ボタンを表示
+ * タイトル「三味線 調弦」と設定アイコン
+ * 和柄の装飾パターンを上部に配置
  */
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../constants/theme';
+import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 
 type HeaderProps = {
   onSettingsPress?: () => void;
@@ -14,6 +15,15 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
   return (
     <View style={styles.container}>
+      {/* 和柄パターン装飾エリア */}
+      <View style={styles.patternArea}>
+        <View style={styles.patternRow}>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <View key={i} style={styles.patternDot} />
+          ))}
+        </View>
+      </View>
+
       {/* 装飾ライン（上） */}
       <View style={styles.decorativeLine} />
       
@@ -34,11 +44,26 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: SPACING.xxl,
-    paddingBottom: SPACING.md,
+    paddingTop: SPACING.lg,
+    paddingBottom: SPACING.sm,
+  },
+  patternArea: {
+    alignItems: 'center',
+    paddingVertical: SPACING.xs,
+    opacity: 0.2,
+  },
+  patternRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  patternDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: COLORS.gold,
   },
   decorativeLine: {
-    height: 2,
+    height: 1.5,
     backgroundColor: COLORS.borderGold,
     marginHorizontal: SPACING.xl,
     opacity: 0.5,
@@ -54,6 +79,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.goldBright,
     letterSpacing: 8,
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   settingsButton: {
     position: 'absolute',

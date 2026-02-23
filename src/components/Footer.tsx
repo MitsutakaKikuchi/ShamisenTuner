@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACING.lg,
     paddingBottom: SPACING.xxxl,
   },
   decorativeLine: {
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.borderGold,
     width: '60%',
     marginBottom: SPACING.sm,
-    opacity: 0.5,
+    opacity: 0.3,
   },
   text: {
-    fontSize: FONT_SIZES.md,
+    fontSize: FONT_SIZES.sm,
     color: COLORS.textMuted,
     letterSpacing: 4,
   },

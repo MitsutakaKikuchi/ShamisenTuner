@@ -1,6 +1,8 @@
 /**
- * 基音選択ピッカー（ドラムロール風）
+ * 基音選択ピッカー（3D木製樽風ドラムロール）
  * 上下スワイプでスクロールし、中央の項目を選択状態にする
+ * 選択行はゴールドグラデーション背景、上下はフェードアウト
+ * 左右にゴールド装飾キャップと三角矢印を配置
  */
 
 import React, { useRef, useCallback, useMemo } from 'react';
@@ -10,14 +12,13 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  type ViewToken,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
 import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 import type { BaseNote } from '../constants/tuningData';
 
-const ITEM_HEIGHT = 60;
+const ITEM_HEIGHT = 56;
 const VISIBLE_ITEMS = 5;
 const PICKER_HEIGHT = ITEM_HEIGHT * VISIBLE_ITEMS;
 
@@ -81,7 +82,7 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
           onPress={() => handleItemPress(item.id, index)}
           activeOpacity={0.7}
         >
-          <Text style={[styles.itemHonSuu, isSelected && styles.itemTextSelected]}>
+          <Text style={[styles.itemHonSuu, isSelected && styles.itemHonSuuSelected]}>
             {item.honSuu}
           </Text>
           <Text style={[styles.itemNote, isSelected && styles.itemNoteSelected]}>
@@ -104,30 +105,42 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
 
   return (
     <View style={styles.container}>
-      {/* 装飾ボーダー（左右） */}
-      <View style={styles.pickerFrame}>
-        {/* 選択インジケーター */}
-        <View style={styles.selectionIndicator} />
-        
-        <FlatList
-          ref={flatListRef}
-          data={notes}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          getItemLayout={getItemLayout}
-          showsVerticalScrollIndicator={false}
-          snapToInterval={ITEM_HEIGHT}
-          decelerationRate="fast"
-          onMomentumScrollEnd={handleMomentumScrollEnd}
-          initialScrollIndex={selectedIndex}
-          contentContainerStyle={{
-            paddingVertical: ITEM_HEIGHT * 2, // 上下のパディングで中央配置
-          }}
-        />
+      <View style={styles.pickerWrapper}>
+        {/* 左キャップ（木製装飾） */}
+        <View style={styles.capLeft}>
+          <Text style={styles.capArrow}>▶</Text>
+        </View>
 
-        {/* 上下グラデーション風のオーバーレイ */}
-        <View style={styles.fadeTop} pointerEvents="none" />
-        <View style={styles.fadeBottom} pointerEvents="none" />
+        {/* メインロール部 */}
+        <View style={styles.pickerFrame}>
+          {/* 選択行インジケーター（ゴールドハイライト） */}
+          <View style={styles.selectionIndicator} />
+          
+          <FlatList
+            ref={flatListRef}
+            data={notes}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            getItemLayout={getItemLayout}
+            showsVerticalScrollIndicator={false}
+            snapToInterval={ITEM_HEIGHT}
+            decelerationRate="fast"
+            onMomentumScrollEnd={handleMomentumScrollEnd}
+            initialScrollIndex={selectedIndex}
+            contentContainerStyle={{
+              paddingVertical: ITEM_HEIGHT * 2,
+            }}
+          />
+
+          {/* 上下フェードオーバーレイ */}
+          <View style={styles.fadeTop} pointerEvents="none" />
+          <View style={styles.fadeBottom} pointerEvents="none" />
+        </View>
+
+        {/* 右キャップ（木製装飾） */}
+        <View style={styles.capRight}>
+          <Text style={styles.capArrow}>◀</Text>
+        </View>
       </View>
     </View>
   );
@@ -138,14 +151,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: SPACING.md,
   },
+  pickerWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  capLeft: {
+    width: 28,
+    height: PICKER_HEIGHT,
+    backgroundColor: COLORS.backgroundLight,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+    borderWidth: 2,
+    borderRightWidth: 0,
+    borderColor: COLORS.borderGold,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  capRight: {
+    width: 28,
+    height: PICKER_HEIGHT,
+    backgroundColor: COLORS.backgroundLight,
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
+    borderWidth: 2,
+    borderLeftWidth: 0,
+    borderColor: COLORS.borderGold,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  capArrow: {
+    fontSize: 10,
+    color: COLORS.gold,
+    opacity: 0.8,
+  },
   pickerFrame: {
     height: PICKER_HEIGHT,
-    width: 200,
+    width: 220,
     borderWidth: 2,
     borderColor: COLORS.borderGold,
-    borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: COLORS.backgroundMedium,
+    backgroundColor: '#D2B48C', // 白木（ヒノキ風）
   },
   selectionIndicator: {
     position: 'absolute',
@@ -153,10 +198,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: ITEM_HEIGHT,
-    backgroundColor: COLORS.surfaceActive,
+    backgroundColor: COLORS.gold,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: COLORS.borderBright,
+    borderColor: COLORS.goldBright,
     zIndex: -1,
   },
   item: {
@@ -165,26 +210,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: SPACING.lg,
-    gap: SPACING.sm,
+    gap: SPACING.md,
   },
   itemSelected: {
-    // スタイルは selectionIndicator で表現
+    // スタイルは selectionIndicator のゴールド背景で表現
   },
   itemHonSuu: {
     fontSize: FONT_SIZES.lg,
-    color: COLORS.textMuted,
+    color: '#5D4037',
+    opacity: 0.6,
+  },
+  itemHonSuuSelected: {
+    color: '#3E2723',
+    opacity: 1,
+    fontWeight: '600',
   },
   itemNote: {
     fontSize: FONT_SIZES.xxl,
     fontWeight: '600',
-    color: COLORS.textMuted,
-  },
-  itemTextSelected: {
-    color: COLORS.textPrimary,
+    color: '#5D4037',
+    opacity: 0.6,
   },
   itemNoteSelected: {
-    color: COLORS.textBright,
-    fontSize: FONT_SIZES.hero,
+    color: '#3E2723',
+    opacity: 1,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   fadeTop: {
@@ -193,8 +243,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: ITEM_HEIGHT * 1.5,
-    backgroundColor: COLORS.backgroundMedium,
-    opacity: 0.6,
+    backgroundColor: '#D2B48C',
+    opacity: 0.5,
   },
   fadeBottom: {
     position: 'absolute',
@@ -202,7 +252,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: ITEM_HEIGHT * 1.5,
-    backgroundColor: COLORS.backgroundMedium,
-    opacity: 0.6,
+    backgroundColor: '#D2B48C',
+    opacity: 0.5,
   },
 });

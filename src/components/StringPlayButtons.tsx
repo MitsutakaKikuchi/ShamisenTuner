@@ -1,12 +1,13 @@
 /**
  * 糸の再生ボタンコンポーネント
  * 3つの糸（一の糸、二の糸、三の糸）を横並びに配置
- * 押している間だけ音が鳴り、視覚フィードバックあり
+ * タップで音が鳴り始め、再タップで止まる（トグル方式）
+ * 発音中はゴールドのグロー効果で視覚フィードバック
  */
 
 import React, { useMemo } from 'react';
-import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../constants/theme';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 import { SHAMISEN_STRINGS } from '../constants/tuningData';
 import { getStringNoteName } from '../utils/noteNameHelper';
 
@@ -15,8 +16,7 @@ type StringPlayButtonsProps = {
   baseNoteId: string;
   tuningModeId: string;
   isAutoPlaying: boolean;
-  onStringPressIn: (stringId: string) => void;
-  onStringPressOut: () => void;
+  onStringToggle: (stringId: string) => void;
 };
 
 export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
@@ -24,8 +24,7 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
   baseNoteId,
   tuningModeId,
   isAutoPlaying,
-  onStringPressIn,
-  onStringPressOut,
+  onStringToggle,
 }) => {
   // 各糸の音名を動的に計算
   const stringNotes = useMemo(() => {
@@ -40,18 +39,18 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
       {stringNotes.map((string) => {
         const isActive = activeStringId === string.id;
         return (
-          <Pressable
+          <TouchableOpacity
             key={string.id}
             style={[
               styles.button,
               isActive && styles.buttonActive,
               isAutoPlaying && !isActive && styles.buttonDisabled,
             ]}
-            onPressIn={() => onStringPressIn(string.id)}
-            onPressOut={onStringPressOut}
-            disabled={false}
+            onPress={() => onStringToggle(string.id)}
+            activeOpacity={0.7}
+            disabled={isAutoPlaying}
           >
-            <View style={[styles.buttonInner, isActive && styles.buttonInnerActive]}>
+            <View style={styles.buttonInner}>
               <Text style={[styles.label, isActive && styles.labelActive]}>
                 {string.label}
               </Text>
@@ -59,7 +58,7 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
                 {string.noteName}
               </Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
         );
       })}
     </View>
@@ -75,12 +74,12 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    maxWidth: 120,
+    maxWidth: 110,
     aspectRatio: 1,
     borderRadius: 999,
     borderWidth: 3,
     borderColor: COLORS.borderGold,
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.backgroundDark,
     alignItems: 'center',
     justifyContent: 'center',
     // 影（iOS）
@@ -95,18 +94,16 @@ const styles = StyleSheet.create({
     borderColor: COLORS.activeGlow,
     backgroundColor: COLORS.surfaceHighlight,
     shadowColor: COLORS.activeGlow,
-    shadowOpacity: 0.8,
-    shadowRadius: 12,
+    shadowOpacity: 0.9,
+    shadowRadius: 16,
+    elevation: 12,
   },
   buttonDisabled: {
-    opacity: 0.5,
+    opacity: 0.4,
   },
   buttonInner: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  buttonInnerActive: {
-    // アクティブ時の追加スタイル（将来拡張用）
   },
   label: {
     fontSize: FONT_SIZES.sm,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   noteName: {
     fontSize: FONT_SIZES.hero,
     fontWeight: 'bold',
-    color: COLORS.textBright,
+    color: COLORS.goldBright,
   },
   noteNameActive: {
     color: COLORS.textWhite,

@@ -15,11 +15,12 @@ import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
 import { Header } from './src/components/Header';
 import { CalibrationControl } from './src/components/CalibrationControl';
 import { BasePitchPicker } from './src/components/BasePitchPicker';
-import { FineTuneSlider } from './src/components/FineTuneSlider';
+import { FineTuneControl } from './src/components/FineTuneControl';
 import { TuningModeSelector } from './src/components/TuningModeSelector';
 import { AutoPlayToggle } from './src/components/AutoPlayToggle';
 import { StringPlayButtons } from './src/components/StringPlayButtons';
 import { Footer } from './src/components/Footer';
+import { BackgroundStrings } from './src/components/BackgroundStrings';
 
 import {
   BASE_NOTES,
@@ -31,8 +32,6 @@ import {
   CALIBRATION_STEP_HZ,
   CALIBRATION_MIN_HZ,
   CALIBRATION_MAX_HZ,
-  FINE_TUNE_MIN_CENTS,
-  FINE_TUNE_MAX_CENTS,
 } from './src/constants/tuningData';
 import { COLORS } from './src/constants/theme';
 import { calculateStringFrequency, calculateBaseFrequency } from './src/utils/frequencyCalculator';
@@ -79,14 +78,9 @@ export default function App() {
     setAppState((prev) => ({ ...prev, baseNoteId: noteId }));
   }, []);
 
-  // 微調整スライダー
+  // 微調整（離散ステップ）
   const handleFineTuneChange = useCallback((value: number) => {
-    setAppState((prev) => ({
-      ...prev,
-      fineTuneCents: Math.round(
-        Math.max(FINE_TUNE_MIN_CENTS, Math.min(FINE_TUNE_MAX_CENTS, value))
-      ),
-    }));
+    setAppState((prev) => ({ ...prev, fineTuneCents: value }));
   }, []);
 
   // 調弦モード切替
@@ -104,11 +98,22 @@ export default function App() {
     setAppState((prev) => ({ ...prev, activeStringId: stringId }));
   }, []);
 
-  // 糸を押した時（音を鳴らす）
-  const handleStringPressIn = useCallback(
+  // 糸をタップした時（トグル再生：タップで鳴り始め、再タップで止まる）
+  const handleStringToggle = useCallback(
     (stringId: string) => {
       // 早期リターン: 自動再生中は手動操作をブロック
       if (appState.isAutoPlaying) {
+        return;
+      }
+
+      // 同じ糸を再タップ → 音を止める
+      if (appState.activeStringId === stringId) {
+        try {
+          ShamisenAudioModule.stopTone();
+          setAppState((prev) => ({ ...prev, activeStringId: null }));
+        } catch (error) {
+          console.error('音の停止に失敗:', error);
+        }
         return;
       }
 
@@ -146,27 +151,13 @@ export default function App() {
     },
     [
       appState.isAutoPlaying,
+      appState.activeStringId,
       appState.baseNoteId,
       appState.calibrationHz,
       appState.fineTuneCents,
       appState.tuningModeId,
     ]
   );
-
-  // 糸を離した時（音を止める）
-  const handleStringPressOut = useCallback(() => {
-    // 早期リターン: 自動再生中は何もしない
-    if (appState.isAutoPlaying) {
-      return;
-    }
-
-    try {
-      ShamisenAudioModule.stopTone();
-      setAppState((prev) => ({ ...prev, activeStringId: null }));
-    } catch (error) {
-      console.error('音の停止に失敗:', error);
-    }
-  }, [appState.isAutoPlaying]);
 
   // === 自動再生フック ===
   useAutoPlay({
@@ -182,6 +173,8 @@ export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="light" />
+      {/* 背景の3本金色絃 */}
+      <BackgroundStrings />
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
@@ -191,7 +184,7 @@ export default function App() {
           {/* ヘッダー */}
           <Header />
 
-          {/* 基準ピッチ調整 */}
+          {/* 基準ピッチ調整 + 調子笛 */}
           <CalibrationControl
             calibrationHz={appState.calibrationHz}
             onDecrease={handleCalibrationDecrease}
@@ -205,8 +198,8 @@ export default function App() {
             onNoteChange={handleBaseNoteChange}
           />
 
-          {/* 微調整スライダー */}
-          <FineTuneSlider
+          {/* 微調整（5段階ステップ） */}
+          <FineTuneControl
             fineTuneCents={appState.fineTuneCents}
             onValueChange={handleFineTuneChange}
           />
@@ -224,15 +217,14 @@ export default function App() {
             onToggle={handleAutoPlayToggle}
           />
 
-          {/* 糸の再生ボタン */}
+          {/* 糸の再生ボタン（トグル方式） */}
           <View style={styles.stringSection}>
             <StringPlayButtons
               activeStringId={appState.activeStringId}
               baseNoteId={appState.baseNoteId}
               tuningModeId={appState.tuningModeId}
               isAutoPlaying={appState.isAutoPlaying}
-              onStringPressIn={handleStringPressIn}
-              onStringPressOut={handleStringPressOut}
+              onStringToggle={handleStringToggle}
             />
           </View>
 

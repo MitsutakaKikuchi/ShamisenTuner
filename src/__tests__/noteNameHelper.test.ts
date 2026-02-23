@@ -5,7 +5,7 @@
 import { getStringNoteName } from '../utils/noteNameHelper';
 
 describe('getStringNoteName', () => {
-  // D4（五本）+ 本調子
+  // D4（六本）+ 本調子
   test('D4+本調子: 一の糸はD', () => {
     expect(getStringNoteName('string_1', 'note_d4', 'honchoshi')).toBe('D');
   });
@@ -19,18 +19,18 @@ describe('getStringNoteName', () => {
     expect(result).toBe("D'");
   });
 
-  // D4（五本）+ 二上り
+  // D4（六本）+ 二上り
   test('D4+二上り: 二の糸はA（完全5度）', () => {
     expect(getStringNoteName('string_2', 'note_d4', 'niagari')).toBe('A');
   });
 
-  // D4（五本）+ 三下り
+  // D4（六本）+ 三下り
   test("D4+三下り: 三の糸はC'（短7度）", () => {
     const result = getStringNoteName('string_3', 'note_d4', 'sansagari');
     expect(result).toBe("C'");
   });
 
-  // C4（三本）+ 本調子
+  // C4（四本）+ 本調子
   test('C4+本調子: 一の糸はC', () => {
     expect(getStringNoteName('string_1', 'note_c4', 'honchoshi')).toBe('C');
   });

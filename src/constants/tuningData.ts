@@ -26,21 +26,16 @@ export type ShamisenString = {
   noteLabel: string; // 'D', 'G', "D'"など（表示用）
 };
 
-// 基音データ（A3〜A4の範囲）
+// 基音データ（一本〜八本の範囲: A3〜E4）
 export const BASE_NOTES: BaseNote[] = [
-  { id: 'note_a3', honSuu: '一本', note: 'A', semitonesFromA4: -12 },
-  { id: 'note_bb3', honSuu: '一本半', note: 'B♭', semitonesFromA4: -11 },
-  { id: 'note_b3', honSuu: '二本', note: 'B', semitonesFromA4: -10 },
-  { id: 'note_c4', honSuu: '三本', note: 'C', semitonesFromA4: -9 },
-  { id: 'note_cs4', honSuu: '四本', note: 'C#', semitonesFromA4: -8 },
-  { id: 'note_d4', honSuu: '五本', note: 'D', semitonesFromA4: -7 },
-  { id: 'note_eb4', honSuu: '五本半', note: 'E♭', semitonesFromA4: -6 },
-  { id: 'note_e4', honSuu: '六本', note: 'E', semitonesFromA4: -5 },
-  { id: 'note_f4', honSuu: '六本半', note: 'F', semitonesFromA4: -4 },
-  { id: 'note_fs4', honSuu: '七本', note: 'F#', semitonesFromA4: -3 },
-  { id: 'note_g4', honSuu: '七本半', note: 'G', semitonesFromA4: -2 },
-  { id: 'note_gs4', honSuu: '八本', note: 'G#', semitonesFromA4: -1 },
-  { id: 'note_a4', honSuu: '九本', note: 'A', semitonesFromA4: 0 },
+  { id: 'note_a3',  honSuu: '一本', note: 'A',  semitonesFromA4: -12 },
+  { id: 'note_bb3', honSuu: '二本', note: 'B♭', semitonesFromA4: -11 },
+  { id: 'note_b3',  honSuu: '三本', note: 'B',  semitonesFromA4: -10 },
+  { id: 'note_c4',  honSuu: '四本', note: 'C',  semitonesFromA4: -9 },
+  { id: 'note_cs4', honSuu: '五本', note: 'C#', semitonesFromA4: -8 },
+  { id: 'note_d4',  honSuu: '六本', note: 'D',  semitonesFromA4: -7 },
+  { id: 'note_ds4', honSuu: '七本', note: 'D#', semitonesFromA4: -6 },
+  { id: 'note_e4',  honSuu: '八本', note: 'E',  semitonesFromA4: -5 },
 ];
 
 // 調弦モード（純正律の比率）
@@ -83,14 +78,23 @@ export const SHAMISEN_STRINGS: ShamisenString[] = [
 
 // デフォルト値
 export const DEFAULT_CALIBRATION_HZ = 440;
-export const DEFAULT_BASE_NOTE_ID = 'note_d4'; // 五本（D）
+export const DEFAULT_BASE_NOTE_ID = 'note_c4'; // 四本（C）
 export const DEFAULT_TUNING_MODE_ID = 'honchoshi';
 export const DEFAULT_FINE_TUNE_CENTS = 0;
 
-// 微調整の範囲（セント）
-export const FINE_TUNE_MIN_CENTS = -50; // -1/4音
-export const FINE_TUNE_MAX_CENTS = 50;  // +1/4音
-export const FINE_TUNE_STEP_CENTS = 50; // 1/4音刻み
+// 微調整の範囲（セント） ±1/2音
+export const FINE_TUNE_MIN_CENTS = -100; // -1/2音
+export const FINE_TUNE_MAX_CENTS = 100;  // +1/2音
+export const FINE_TUNE_STEP_CENTS = 50;  // 1/4音刻み
+
+// 微調整の離散ステップ値
+export const FINE_TUNE_STEPS = [
+  { value: -100, label: '-1/2' },
+  { value: -50,  label: '-1/4' },
+  { value: 0,    label: '0' },
+  { value: 50,   label: '+1/4' },
+  { value: 100,  label: '+1/2' },
+] as const;
 
 // キャリブレーションの範囲
 export const CALIBRATION_MIN_HZ = 430;

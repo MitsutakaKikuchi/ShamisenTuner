@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderRightColor: COLORS.borderGold,
   },
   tabActive: {
-    backgroundColor: COLORS.surfaceHighlight,
+    backgroundColor: COLORS.gold,
   },
   tabText: {
     fontSize: FONT_SIZES.xl,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   tabTextActive: {
-    color: COLORS.textWhite,
+    color: '#3E2723',
     fontWeight: 'bold',
   },
 });

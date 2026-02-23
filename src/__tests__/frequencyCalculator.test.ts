@@ -14,21 +14,21 @@ import {
 } from '../utils/frequencyCalculator';
 
 describe('calculateBaseFrequency', () => {
-  // A4 = 440Hz で A4 を選択した場合 → 440Hz
-  test('A4を選択した場合、基準ピッチそのままの値を返す', () => {
-    const result = calculateBaseFrequency('note_a4', 440, 0);
-    expect(result).toBeCloseTo(440, 1);
+  // A3 = 一本（A3）= 440Hz × 2^(-12/12) = 220Hz
+  test('A3（一本）を選択した場合、220Hzを返す', () => {
+    const result = calculateBaseFrequency('note_a3', 440, 0);
+    expect(result).toBeCloseTo(220, 1);
   });
 
-  // A4 = 440Hz で D4（五本）を選択した場合 → 約293.66Hz
-  test('D4（五本）を選択した場合、正しい周波数を返す', () => {
+  // A4 = 440Hz で D4（六本）を選択した場合 → 約293.66Hz
+  test('D4（六本）を選択した場合、正しい周波数を返す', () => {
     const result = calculateBaseFrequency('note_d4', 440, 0);
     expect(result).not.toBeNull();
     expect(result!).toBeCloseTo(293.66, 0);
   });
 
-  // A4 = 440Hz で C4（三本）を選択した場合 → 約261.63Hz
-  test('C4（三本）を選択した場合、正しい周波数を返す', () => {
+  // A4 = 440Hz で C4（四本）を選択した場合 → 約261.63Hz
+  test('C4（四本）を選択した場合、正しい周波数を返す', () => {
     const result = calculateBaseFrequency('note_c4', 440, 0);
     expect(result).not.toBeNull();
     expect(result!).toBeCloseTo(261.63, 0);
@@ -54,10 +54,10 @@ describe('calculateBaseFrequency', () => {
 
   // 基準ピッチ442Hz
   test('基準ピッチ442Hzで全体が上がる', () => {
-    const hz440 = calculateBaseFrequency('note_a4', 440, 0);
-    const hz442 = calculateBaseFrequency('note_a4', 442, 0);
-    expect(hz440).toBeCloseTo(440, 1);
-    expect(hz442).toBeCloseTo(442, 1);
+    const hz440 = calculateBaseFrequency('note_a3', 440, 0);
+    const hz442 = calculateBaseFrequency('note_a3', 442, 0);
+    expect(hz440).toBeCloseTo(220, 1);
+    expect(hz442).toBeCloseTo(221, 0);
   });
 
   // 異常系: 無効な基音ID
@@ -126,7 +126,7 @@ describe('calculateStringFrequency', () => {
 });
 
 describe('calculateAllStringFrequencies', () => {
-  // 正常系: D4 (五本) + 本調子
+  // 正常系: D4 (六本) + 本調子
   test('D4+本調子で3つの周波数を返す', () => {
     const results = calculateAllStringFrequencies('note_d4', 'honchoshi', 440, 0);
     expect(results).toHaveLength(3);
