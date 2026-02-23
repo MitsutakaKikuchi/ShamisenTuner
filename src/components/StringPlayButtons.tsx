@@ -5,25 +5,37 @@
  * 発音中はゴールドのグロー効果で視覚フィードバック
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 import { SHAMISEN_STRINGS } from '../constants/tuningData';
+import { getStringNoteName } from '../utils/noteNameHelper';
 
 type StringPlayButtonsProps = {
   activeStringId: string | null;
+  baseNoteId: string;
+  tuningModeId: string;
   isAutoPlaying: boolean;
   onStringToggle: (stringId: string) => void;
 };
 
 export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
   activeStringId,
+  baseNoteId,
+  tuningModeId,
   isAutoPlaying,
   onStringToggle,
 }) => {
+  const stringNotes = useMemo(() => {
+    return SHAMISEN_STRINGS.map((string) => ({
+      ...string,
+      noteName: getStringNoteName(string.id, baseNoteId, tuningModeId),
+    }));
+  }, [baseNoteId, tuningModeId]);
+
   return (
     <View style={styles.container}>
-      {SHAMISEN_STRINGS.map((string) => {
+      {stringNotes.map((string) => {
         const isActive = activeStringId === string.id;
         return (
           <TouchableOpacity
@@ -40,6 +52,9 @@ export const StringPlayButtons: React.FC<StringPlayButtonsProps> = ({
             <View style={[styles.innerButton, isActive && styles.innerButtonActive]}>
               <Text style={[styles.label, isActive && styles.labelActive]}>
                 {string.label}
+              </Text>
+              <Text style={[styles.noteName, isActive && styles.noteNameActive]}>
+                {string.noteName}
               </Text>
             </View>
           </TouchableOpacity>
@@ -102,5 +117,18 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     color: '#ffdf91',
+  },
+  noteName: {
+    fontSize: FONT_SIZES.xxl,
+    color: '#c6a265',
+    fontFamily: 'serif',
+    fontWeight: 'bold',
+    marginTop: 2,
+  },
+  noteNameActive: {
+    color: '#ffdf91',
+    textShadowColor: 'rgba(255, 223, 145, 0.8)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
 });

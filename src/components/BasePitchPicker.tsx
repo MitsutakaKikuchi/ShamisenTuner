@@ -16,6 +16,7 @@ import {
   type NativeSyntheticEvent,
 } from 'react-native';
 import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
+import { LinearGradient } from 'expo-linear-gradient';
 import type { BaseNote } from '../constants/tuningData';
 
 const ITEM_HEIGHT = 56;
@@ -85,6 +86,9 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
           <Text style={[styles.itemHonSuu, isSelected && styles.itemHonSuuSelected]}>
             {item.honSuu}
           </Text>
+          <Text style={[styles.itemNote, isSelected && styles.itemNoteSelected]}>
+            {item.note}
+          </Text>
         </TouchableOpacity>
       );
     },
@@ -110,8 +114,13 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
 
         {/* メインロール部 */}
         <View style={styles.pickerFrame}>
-          {/* 選択行インジケーター（ゴールドハイライト） */}
-          <View style={styles.selectionIndicator} />
+          {/* 選択行インジケーター（ゴールドグラデーション） */}
+          <LinearGradient
+            colors={['#c6a265', '#dfc78a', '#c6a265']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.selectionIndicator}
+          />
           
           <FlatList
             ref={flatListRef}
@@ -130,8 +139,16 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
           />
 
           {/* 上下フェードオーバーレイ */}
-          <View style={styles.fadeTop} pointerEvents="none" />
-          <View style={styles.fadeBottom} pointerEvents="none" />
+          <LinearGradient
+            colors={['#D2B48C', 'rgba(210, 180, 140, 0)']}
+            style={styles.fadeTop}
+            pointerEvents="none"
+          />
+          <LinearGradient
+            colors={['rgba(210, 180, 140, 0)', '#D2B48C']}
+            style={styles.fadeBottom}
+            pointerEvents="none"
+          />
         </View>
 
         {/* 右キャップ（木製装飾） */}
@@ -195,7 +212,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: ITEM_HEIGHT,
-    backgroundColor: COLORS.gold,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: COLORS.goldBright,
@@ -225,14 +241,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'serif',
   },
+  itemNote: {
+    fontSize: FONT_SIZES.lg,
+    color: '#5D4037',
+    opacity: 0.5,
+    fontFamily: 'serif',
+  },
+  itemNoteSelected: {
+    color: '#3E2723',
+    opacity: 1,
+    fontSize: FONT_SIZES.xl,
+    fontWeight: '600',
+    fontFamily: 'serif',
+  },
   fadeTop: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     height: ITEM_HEIGHT * 1.5,
-    backgroundColor: '#D2B48C',
-    opacity: 0.5,
   },
   fadeBottom: {
     position: 'absolute',
@@ -240,7 +267,5 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: ITEM_HEIGHT * 1.5,
-    backgroundColor: '#D2B48C',
-    opacity: 0.5,
   },
 });

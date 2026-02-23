@@ -10,14 +10,18 @@ import { COLORS, FONT_SIZES, SPACING, BORDER_RADIUS } from '../constants/theme';
 
 type CalibrationControlProps = {
   calibrationHz: number;
+  toneType: 'electronic' | 'pipe';
   onDecrease: () => void;
   onIncrease: () => void;
+  onToneTypeToggle: () => void;
 };
 
 export const CalibrationControl: React.FC<CalibrationControlProps> = ({
   calibrationHz,
+  toneType,
   onDecrease,
   onIncrease,
+  onToneTypeToggle,
 }) => {
   return (
     <View style={styles.container}>
@@ -43,10 +47,16 @@ export const CalibrationControl: React.FC<CalibrationControlProps> = ({
         </View>
       </View>
 
-      {/* 右: 調子笛ボタン（将来拡張） */}
-      <TouchableOpacity style={styles.choshiBueButton} activeOpacity={0.7}>
-        <Text style={styles.choshiBueIcon}>🎵</Text>
-        <Text style={styles.choshiBueText}>調子笛</Text>
+      {/* 右: 音色トグル（電子音/調子笛） */}
+      <TouchableOpacity
+        style={[styles.toneButton, toneType === 'pipe' && styles.toneButtonActive]}
+        onPress={onToneTypeToggle}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.toneIcon}>{toneType === 'pipe' ? '🎵' : '🔊'}</Text>
+        <Text style={[styles.toneText, toneType === 'pipe' && styles.toneTextActive]}>
+          {toneType === 'pipe' ? '調子笛' : '電子音'}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -68,12 +78,14 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.lg,
     color: COLORS.textPrimary,
     marginRight: SPACING.sm,
+    fontFamily: 'serif',
   },
   value: {
     fontSize: FONT_SIZES.lg,
     fontWeight: 'bold',
     color: COLORS.textBright,
     marginRight: SPACING.md,
+    fontFamily: 'serif',
   },
   buttonGroup: {
     flexDirection: 'row',
@@ -94,22 +106,31 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.lg,
     fontWeight: 'bold',
   },
-  choshiBueButton: {
+  toneButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.surface,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 20,
-    borderWidth: 1,
-    borderColor: COLORS.borderGold,
+    borderWidth: 1.5,
+    borderColor: COLORS.borderLight,
     gap: SPACING.xs,
   },
-  choshiBueIcon: {
+  toneButtonActive: {
+    backgroundColor: COLORS.goldDark,
+    borderColor: COLORS.gold,
+  },
+  toneIcon: {
     fontSize: FONT_SIZES.md,
   },
-  choshiBueText: {
+  toneText: {
     fontSize: FONT_SIZES.sm,
-    color: COLORS.textPrimary,
+    color: COLORS.textMuted,
+    fontFamily: 'serif',
+  },
+  toneTextActive: {
+    color: COLORS.textBright,
+    fontWeight: 'bold',
   },
 });

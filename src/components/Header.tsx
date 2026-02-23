@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, FONT_SIZES, SPACING } from '../constants/theme';
 
 type HeaderProps = {
@@ -14,7 +15,10 @@ type HeaderProps = {
 
 export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={['#2a1508', '#210e04', '#1a0a02']}
+      style={styles.container}
+    >
       {/* 和柄パターン装飾エリア */}
       <View style={styles.patternArea}>
         <View style={styles.patternRow}>
@@ -38,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsPress }) => {
       
       {/* 装飾ライン（下） */}
       <View style={styles.decorativeLine} />
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -54,7 +58,8 @@ const styles = StyleSheet.create({
   },
   patternRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: 8,
+    alignItems: 'center',
   },
   patternDot: {
     width: 4,
@@ -79,9 +84,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.goldBright,
     letterSpacing: 8,
-    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    fontFamily: 'serif',
+    textShadowColor: 'rgba(198, 162, 101, 0.5)',
     textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    textShadowRadius: 6,
   },
   settingsButton: {
     position: 'absolute',

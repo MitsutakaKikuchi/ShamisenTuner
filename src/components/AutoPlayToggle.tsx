@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FONT_SIZES.md,
     color: COLORS.textPrimary,
+    fontFamily: 'serif',
   },
 });

@@ -39,6 +39,7 @@ export const FineTuneControl: React.FC<FineTuneControlProps> = ({
       </View>
       {/* トラックライン（装飾用） */}
       <View style={styles.trackLine}>
+        <View style={styles.trackBar} />
         {FINE_TUNE_STEPS.map((step) => {
           const isActive = fineTuneCents === step.value;
           return (
@@ -79,9 +80,10 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     color: COLORS.textMuted,
     fontWeight: '500',
+    fontFamily: 'serif',
   },
   stepTextActive: {
-    color: COLORS.goldBright,
+    color: COLORS.textDark,
     fontWeight: 'bold',
     fontSize: FONT_SIZES.lg,
   },
@@ -93,6 +95,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.lg,
     height: 12,
     position: 'relative',
+  },
+  trackBar: {
+    position: 'absolute',
+    left: 16,
+    right: 16,
+    height: 2,
+    backgroundColor: COLORS.borderLight,
+    top: 5,
   },
   trackDot: {
     width: 6,

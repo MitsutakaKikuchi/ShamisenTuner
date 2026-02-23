@@ -51,6 +51,7 @@ export default function App() {
     baseNoteId: DEFAULT_BASE_NOTE_ID,
     fineTuneCents: DEFAULT_FINE_TUNE_CENTS,
     tuningModeId: DEFAULT_TUNING_MODE_ID,
+    toneType: 'electronic',
     isAutoPlaying: false,
     activeStringId: null,
   });
@@ -91,6 +92,14 @@ export default function App() {
   // 自動再生トグル
   const handleAutoPlayToggle = useCallback(() => {
     setAppState((prev) => ({ ...prev, isAutoPlaying: !prev.isAutoPlaying }));
+  }, []);
+
+  // 音色切替（電子音 ↔ 調子笛）
+  const handleToneTypeToggle = useCallback(() => {
+    setAppState((prev) => ({
+      ...prev,
+      toneType: prev.toneType === 'electronic' ? 'pipe' : 'electronic',
+    }));
   }, []);
 
   // 自動再生フックからの糸変更コールバック
@@ -187,8 +196,10 @@ export default function App() {
           {/* 基準ピッチ調整 + 調子笛 */}
           <CalibrationControl
             calibrationHz={appState.calibrationHz}
+            toneType={appState.toneType}
             onDecrease={handleCalibrationDecrease}
             onIncrease={handleCalibrationIncrease}
+            onToneTypeToggle={handleToneTypeToggle}
           />
 
           {/* 基音選択ドラムロール */}
@@ -221,6 +232,8 @@ export default function App() {
           <View style={styles.stringSection}>
             <StringPlayButtons
               activeStringId={appState.activeStringId}
+              baseNoteId={appState.baseNoteId}
+              tuningModeId={appState.tuningModeId}
               isAutoPlaying={appState.isAutoPlaying}
               onStringToggle={handleStringToggle}
             />
