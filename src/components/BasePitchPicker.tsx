@@ -85,9 +85,6 @@ export const BasePitchPicker: React.FC<BasePitchPickerProps> = ({
           <Text style={[styles.itemHonSuu, isSelected && styles.itemHonSuuSelected]}>
             {item.honSuu}
           </Text>
-          <Text style={[styles.itemNote, isSelected && styles.itemNoteSelected]}>
-            {item.note}
-          </Text>
         </TouchableOpacity>
       );
     },
@@ -216,26 +213,17 @@ const styles = StyleSheet.create({
     // スタイルは selectionIndicator のゴールド背景で表現
   },
   itemHonSuu: {
-    fontSize: FONT_SIZES.lg,
+    fontSize: FONT_SIZES.xl,
     color: '#5D4037',
     opacity: 0.6,
+    fontFamily: 'serif',
   },
   itemHonSuuSelected: {
     color: '#3E2723',
     opacity: 1,
-    fontWeight: '600',
-  },
-  itemNote: {
     fontSize: FONT_SIZES.xxl,
     fontWeight: '600',
-    color: '#5D4037',
-    opacity: 0.6,
-  },
-  itemNoteSelected: {
-    color: '#3E2723',
-    opacity: 1,
-    fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'serif',
   },
   fadeTop: {
     position: 'absolute',

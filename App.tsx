@@ -221,8 +221,6 @@ export default function App() {
           <View style={styles.stringSection}>
             <StringPlayButtons
               activeStringId={appState.activeStringId}
-              baseNoteId={appState.baseNoteId}
-              tuningModeId={appState.tuningModeId}
               isAutoPlaying={appState.isAutoPlaying}
               onStringToggle={handleStringToggle}
             />

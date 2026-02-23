@@ -82,18 +82,18 @@ export const DEFAULT_BASE_NOTE_ID = 'note_c4'; // 四本（C）
 export const DEFAULT_TUNING_MODE_ID = 'honchoshi';
 export const DEFAULT_FINE_TUNE_CENTS = 0;
 
-// 微調整の範囲（セント） ±1/2音
-export const FINE_TUNE_MIN_CENTS = -100; // -1/2音
-export const FINE_TUNE_MAX_CENTS = 100;  // +1/2音
-export const FINE_TUNE_STEP_CENTS = 50;  // 1/4音刻み
+// 微調整の範囲（セント） ±半音の1/2
+export const FINE_TUNE_MIN_CENTS = -50; // -半音の1/2 (-50セント)
+export const FINE_TUNE_MAX_CENTS = 50;  // +半音の1/2 (+50セント)
+export const FINE_TUNE_STEP_CENTS = 25; // 半音の1/4刻み（25セント）
 
 // 微調整の離散ステップ値
 export const FINE_TUNE_STEPS = [
-  { value: -100, label: '-1/2' },
-  { value: -50,  label: '-1/4' },
+  { value: -50,  label: '-1/2' }, // 半音の-1/2 (-50セント)
+  { value: -25,  label: '-1/4' }, // 半音の-1/4 (-25セント)
   { value: 0,    label: '0' },
-  { value: 50,   label: '+1/4' },
-  { value: 100,  label: '+1/2' },
+  { value: 25,   label: '+1/4' }, // 半音の+1/4 (+25セント)
+  { value: 50,   label: '+1/2' }, // 半音の+1/2 (+50セント)
 ] as const;
 
 // キャリブレーションの範囲
