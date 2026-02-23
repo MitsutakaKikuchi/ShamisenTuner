@@ -163,6 +163,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FONT_SIZES.md,
     color: '#d8bd8a',
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
 });

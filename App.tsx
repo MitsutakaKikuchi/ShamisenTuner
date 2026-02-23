@@ -10,7 +10,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useKeepAwake } from 'expo-keep-awake';
 import { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import {
+  useFonts,
+  ZenOldMincho_900Black,
+  ZenOldMincho_700Bold,
+  ZenOldMincho_400Regular,
+} from '@expo-google-fonts/zen-old-mincho';
 
 import { Header } from './src/components/Header';
 import { CalibrationControl } from './src/components/CalibrationControl';
@@ -42,6 +49,18 @@ import ShamisenAudioModule from './modules/shamisen-audio';
 export default function App() {
   // 画面スリープ防止（アプリ起動中は常にON）
   useKeepAwake();
+
+  // 日本語筆書きフォントの読み込み
+  const [fontsLoaded] = useFonts({
+    ZenOldMincho_900Black,
+    ZenOldMincho_700Bold,
+    ZenOldMincho_400Regular,
+  });
+
+  // フォント読み込み完了待機
+  if (!fontsLoaded) {
+    return null;
+  }
 
   // === 状態管理 ===
   const [appState, setAppState] = useState<AppState>({
@@ -187,89 +206,93 @@ export default function App() {
 
   // === レンダリング ===
   return (
-    <ImageBackground
-      source={require('./assets/background.jpeg')}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
-      <SafeAreaView style={styles.safeArea}>
-        <StatusBar style="light" />
-        <View style={styles.container}>
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-          >
-            {/* ヘッダー */}
-            <Header />
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="light" />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
+        {/* 上部セクション: 深夜スカイ（青海波ヘッダー背景と統一） */}
+        <View style={styles.topSection}>
+          {/* ヘッダー */}
+          <Header />
 
-            {/* 基準ピッチ調整 + 調子笛 */}
-            <CalibrationControl
-              calibrationHz={appState.calibrationHz}
-              toneType={appState.toneType}
-              onDecrease={handleCalibrationDecrease}
-              onIncrease={handleCalibrationIncrease}
-              onToneTypeToggle={handleToneTypeToggle}
-            />
-
-            {/* 基音選択ドラムロール */}
-            <BasePitchPicker
-              notes={BASE_NOTES}
-              selectedNoteId={appState.baseNoteId}
-              onNoteChange={handleBaseNoteChange}
-            />
-
-            {/* 微調整（5段階ステップ） */}
-            <FineTuneControl
-              fineTuneCents={appState.fineTuneCents}
-              onValueChange={handleFineTuneChange}
-            />
-
-            {/* 調弦モード選択 */}
-            <TuningModeSelector
-              modes={TUNING_MODES}
-              selectedModeId={appState.tuningModeId}
-              onModeChange={handleTuningModeChange}
-            />
-
-            {/* 自動再生トグル */}
-            <AutoPlayToggle
-              isAutoPlaying={appState.isAutoPlaying}
-              onToggle={handleAutoPlayToggle}
-            />
-
-            {/* 糸の再生ボタン（トグル方式） */}
-            <View style={styles.stringSection}>
-              <StringPlayButtons
-                activeStringId={appState.activeStringId}
-                baseNoteId={appState.baseNoteId}
-                tuningModeId={appState.tuningModeId}
-                isAutoPlaying={appState.isAutoPlaying}
-                onStringToggle={handleStringToggle}
-              />
-            </View>
-
-            {/* フッター */}
-            <Footer />
-          </ScrollView>
+          {/* 基準ピッチ調整 + 調子笛 */}
+          <CalibrationControl
+            calibrationHz={appState.calibrationHz}
+            toneType={appState.toneType}
+            onDecrease={handleCalibrationDecrease}
+            onIncrease={handleCalibrationIncrease}
+            onToneTypeToggle={handleToneTypeToggle}
+          />
         </View>
-      </SafeAreaView>
-    </ImageBackground>
+
+        {/* 下部セクション: 温かい木目グラデーション */}
+        <LinearGradient
+          colors={['#2E1608', '#3A1C0A', '#281206', '#421A08', '#2E1208']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.bottomSection}
+        >
+          {/* 基音選択ドラムロール */}
+          <BasePitchPicker
+            notes={BASE_NOTES}
+            selectedNoteId={appState.baseNoteId}
+            onNoteChange={handleBaseNoteChange}
+          />
+
+          {/* 微調整（5段階ステップ） */}
+          <FineTuneControl
+            fineTuneCents={appState.fineTuneCents}
+            onValueChange={handleFineTuneChange}
+          />
+
+          {/* 調弦モード選択 */}
+          <TuningModeSelector
+            modes={TUNING_MODES}
+            selectedModeId={appState.tuningModeId}
+            onModeChange={handleTuningModeChange}
+          />
+
+          {/* 自動再生トグル */}
+          <AutoPlayToggle
+            isAutoPlaying={appState.isAutoPlaying}
+            onToggle={handleAutoPlayToggle}
+          />
+
+          {/* 糸の再生ボタン（トグル方式） */}
+          <View style={styles.stringSection}>
+            <StringPlayButtons
+              activeStringId={appState.activeStringId}
+              baseNoteId={appState.baseNoteId}
+              tuningModeId={appState.tuningModeId}
+              isAutoPlaying={appState.isAutoPlaying}
+              onStringToggle={handleStringToggle}
+            />
+          </View>
+        </LinearGradient>
+
+        {/* フッター */}
+        <Footer />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-  },
   safeArea: {
     flex: 1,
-  },
-  container: {
-    flex: 1,
+    backgroundColor: '#070D1C', // 深夜スカイ（上部のHeader배경と統一）
   },
   scrollContent: {
     flexGrow: 1,
+  },
+  topSection: {
+    backgroundColor: '#070D1C', // 深夜スカイブルー（青海波上部）
+  },
+  bottomSection: {
+    // LinearGradient 自身が背景色を持つ
   },
   stringSection: {
     paddingVertical: 24,

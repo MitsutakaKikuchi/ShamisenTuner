@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FONT_SIZES.md,
     color: '#d8bd8a',
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
   labelActive: {
     color: '#ffdf91',
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   noteName: {
     fontSize: FONT_SIZES.xxl,
     color: '#c6a265',
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_700Bold',
     fontWeight: 'bold',
     marginTop: 2,
   },

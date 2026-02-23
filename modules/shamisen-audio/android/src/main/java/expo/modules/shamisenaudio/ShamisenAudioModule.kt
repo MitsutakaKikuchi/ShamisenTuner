@@ -18,8 +18,8 @@ class ShamisenAudioModule : Module() {
   private var playThread: Thread? = null
 
   private val sampleRate = 44100
-  private val fadeInSamples = 441
-  private val fadeOutSamples = 441
+  private val fadeInSamples = 1764 // 約40ms（リード楽器の立ち上がり特性）
+  private val fadeOutSamples = 882  // 約20ms
 
   override fun definition() = ModuleDefinition {
     Name("ShamisenAudio")
@@ -97,13 +97,14 @@ class ShamisenAudioModule : Module() {
           val phase = (2.0 * PI * frequency * time).toFloat()
 
           var sample = if (isPipe) {
+            // ピッチパイプ風: 自由リードの音色特性（2倍音強め、急減衰）
             (sin(phase.toDouble())
-              + 0.30 * sin(2.0 * phase)
-              + 0.45 * sin(3.0 * phase)
-              + 0.10 * sin(4.0 * phase)
-              + 0.25 * sin(5.0 * phase)
-              + 0.05 * sin(6.0 * phase)
-              + 0.12 * sin(7.0 * phase)).toFloat() * 0.44f
+              + 0.60 * sin(2.0 * phase)
+              + 0.35 * sin(3.0 * phase)
+              + 0.20 * sin(4.0 * phase)
+              + 0.12 * sin(5.0 * phase)
+              + 0.06 * sin(6.0 * phase)
+              + 0.03 * sin(7.0 * phase)).toFloat() * 0.42f
           } else {
             sin(phase.toDouble()).toFloat()
           }

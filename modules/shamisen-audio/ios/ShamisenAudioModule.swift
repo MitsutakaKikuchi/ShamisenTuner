@@ -13,8 +13,8 @@ public class ShamisenAudioModule: Module {
   
   // フェード処理用
   private let sampleRate: Double = 44100.0
-  private let fadeInSamples: Int = 441  // 約10ms
-  private let fadeOutSamples: Int = 441 // 約10ms
+  private let fadeInSamples: Int = 1764 // 約40ms（リード楽器の立ち上がり특성）
+  private let fadeOutSamples: Int = 882  // 約20ms
   
   public func definition() -> ModuleDefinition {
     Name("ShamisenAudio")
@@ -126,16 +126,17 @@ public class ShamisenAudioModule: Module {
       
       var sample: Float
       if isPipe {
-        // 調子笛風波形: 奇数次倍音を強調したリード楽器的な音色
-        sample = sin(phase)                    // 基本波
-          + 0.30 * sin(2.0 * phase)           // 2次倍音
-          + 0.45 * sin(3.0 * phase)           // 3次倍音（奇数次）
-          + 0.10 * sin(4.0 * phase)           // 4次倍音
-          + 0.25 * sin(5.0 * phase)           // 5次倍音（奇数次）
-          + 0.05 * sin(6.0 * phase)           // 6次倍音
-          + 0.12 * sin(7.0 * phase)           // 7次倍音（奇数次）
-        // 正規化（合計振幅 ≈ 2.27 → スケール）
-        sample *= 0.44
+        // ピッチパイプ風波形: 自由リード（フリーリード）の音色特性
+        // 基本波強め＋2倍音（オクターブ）強め、高次倍音は急減衰
+        sample = sin(phase)                    // 基本波: 1.0
+          + 0.60 * sin(2.0 * phase)           // 2倍音（オクターブ）: リードの特徴
+          + 0.35 * sin(3.0 * phase)           // 3倍音
+          + 0.20 * sin(4.0 * phase)           // 4倍音
+          + 0.12 * sin(5.0 * phase)           // 5倍音
+          + 0.06 * sin(6.0 * phase)           // 6倍音
+          + 0.03 * sin(7.0 * phase)           // 7倍音（急減衰）
+        // 正規化（合計振幅 ≈ 2.36 → スケール）
+        sample *= 0.42
       } else {
         // 電子音: 正弦波
         sample = sin(phase)
@@ -224,12 +225,12 @@ public class ShamisenAudioModule: Module {
       var sample: Float
       if toneType == "pipe" {
         sample = (sin(phase)
-          + 0.30 * sin(2.0 * phase)
-          + 0.45 * sin(3.0 * phase)
-          + 0.10 * sin(4.0 * phase)
-          + 0.25 * sin(5.0 * phase)
-          + 0.05 * sin(6.0 * phase)
-          + 0.12 * sin(7.0 * phase)) * 0.44
+          + 0.60 * sin(2.0 * phase)
+          + 0.35 * sin(3.0 * phase)
+          + 0.20 * sin(4.0 * phase)
+          + 0.12 * sin(5.0 * phase)
+          + 0.06 * sin(6.0 * phase)
+          + 0.03 * sin(7.0 * phase)) * 0.42
       } else {
         sample = sin(phase)
       }

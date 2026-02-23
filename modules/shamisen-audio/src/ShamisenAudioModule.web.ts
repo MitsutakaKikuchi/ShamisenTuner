@@ -19,8 +19,9 @@ class ShamisenAudioModule extends NativeModule<ShamisenAudioModuleEvents> {
   private toneType: 'electronic' | 'pipe' = 'electronic';
 
   // フェード時間（秒）
-  private readonly FADE_IN_TIME = 0.01;
-  private readonly FADE_OUT_TIME = 0.01;
+  // フェード時間: pipe モードは長め（リード楽器の立ち上がり特性）
+  private readonly FADE_IN_TIME = 0.04;  // 40ms
+  private readonly FADE_OUT_TIME = 0.02; // 20ms
 
   private getAudioContext(): AudioContext {
     if (!this.audioContext) {
@@ -48,18 +49,19 @@ class ShamisenAudioModule extends NativeModule<ShamisenAudioModuleEvents> {
    * 奇数次倍音を強調した笛のような音色
    */
   private createPipeWave(ctx: AudioContext): PeriodicWave {
-    // 調子笛: 基本波 + 奇数倍音（笛のような温かみのある音）
+    // ピッチパイプ（調子笛）: 自由リード（フリーリード）の音色特性
+    // 2倍音（オクターブ）が強く、高次倍音は急減衰するのが特徴
     const real = new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const imag = new Float32Array([
       0,     // DC
       1.0,   // 基本波
-      0.3,   // 2次倍音（リード楽器の特徴）
-      0.45,  // 3次倍音（奇数次: 笛の響き）
-      0.1,   // 4次倍音
-      0.25,  // 5次倍音（奇数次）
-      0.05,  // 6次倍音
-      0.12,  // 7次倍音（奇数次）
-      0.03,  // 8次倍音
+      0.60,  // 2次倍音（オクターブ）: リードの顕著な特徴
+      0.35,  // 3次倍音
+      0.20,  // 4次倍音
+      0.12,  // 5次倍音
+      0.06,  // 6次倍音
+      0.03,  // 7次倍音（急減衰）
+      0.01,  // 8次倍音
     ]);
     return ctx.createPeriodicWave(real, imag, { disableNormalization: false });
   }

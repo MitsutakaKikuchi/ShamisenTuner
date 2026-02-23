@@ -169,12 +169,12 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: FONT_SIZES.xl,
     color: '#A88860',
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
   tabTextActive: {
     fontSize: FONT_SIZES.xl,
     color: '#3E2008',
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_700Bold',
     fontWeight: 'bold',
     textShadowColor: 'rgba(255, 248, 200, 0.6)',
     textShadowOffset: { width: 0, height: 1 },

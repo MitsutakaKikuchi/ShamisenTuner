@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.sm,
     color: COLORS.textMuted,
     letterSpacing: 4,
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
 });

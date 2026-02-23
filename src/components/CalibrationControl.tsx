@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.lg,
     color: COLORS.textPrimary,
     marginRight: SPACING.sm,
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
   value: {
     fontSize: FONT_SIZES.lg,
     fontWeight: 'bold',
     color: COLORS.textBright,
     marginRight: SPACING.md,
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_700Bold',
   },
   buttonGroup: {
     flexDirection: 'row',
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   toneText: {
     fontSize: FONT_SIZES.sm,
     color: COLORS.textMuted,
-    fontFamily: 'serif',
+    fontFamily: 'ZenOldMincho_400Regular',
   },
   toneTextActive: {
     color: COLORS.textBright,
